@@ -1,6 +1,7 @@
 import os
 from PIL import Image
 from collections import Counter
+from torchvision.datasets import DatasetFolder, ImageFolder
 
 class GravitySpy_1_0_dataset(ImageFolder):
   def __init__(self, root, cls, transform=None):
