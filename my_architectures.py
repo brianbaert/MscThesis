@@ -52,16 +52,24 @@ class SingleViewModel(nn.Module):
 
 class BaselineGrayscaleNet_resnet18(nn.Module):
     def __init__(self):
+        # Call the class constructor
         super(BaselineGrayscaleNet_resnet18, self).__init__()
+        # Initialize a pretrained ResNet-18 model
         self.resnet = models.resnet18(pretrained=True)
+        # Replace the first convolutional layer to accept grayscale images (1 channel instead of 3)
         self.resnet.conv1 = torch.nn.Conv2d(1, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+        # Unfreeze all parameters in the model for training
         for param in self.resnet.parameters():
           param.requires_grad = True  #Unfreeze all parameters
+        # Get the number of features (inputs) in the last layer of the model
         num_features_in = self.resnet.fc.in_features
+        # Replace the last layer with a new linear layer that matches the number of classes in the dataset, 22
         self.resnet.fc = nn.Linear(num_features_in, 22)
 
     def forward(self, x):
+        # Forward pass: compute the output of the model by passing the input through the model
         x = self.resnet(x)
+        # Return the model's output
         return x
 
 class BaselineColorNet_resnet18(nn.Module):
