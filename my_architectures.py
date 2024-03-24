@@ -50,9 +50,9 @@ class SingleViewModel(nn.Module):
             num_features *= s
         return num_features
 
-class BaselineGrayscaleNet(nn.Module):
+class BaselineGrayscaleNet_resnet18(nn.Module):
     def __init__(self):
-        super(BaselineGrayscaleNet, self).__init__()
+        super(BaselineGrayscaleNet_resnet18, self).__init__()
         self.resnet = models.resnet18(pretrained=True)
         self.resnet.conv1 = torch.nn.Conv2d(1, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
         for param in self.resnet.parameters():
@@ -64,9 +64,9 @@ class BaselineGrayscaleNet(nn.Module):
         x = self.resnet(x)
         return x
 
-class Net(nn.Module):
+class BaselineColorNet_resnet18(nn.Module):
     def __init__(self):
-        super(Net, self).__init__()
+        super(BaselineColorNet_resnet18, self).__init__()
         self.resnet = models.resnet18(pretrained=True)
         for param in self.resnet.parameters():
           param.requires_grad = True  #Unfreeze all parameters
