@@ -49,3 +49,39 @@ class SingleViewModel(nn.Module):
         for s in size:
             num_features *= s
         return num_features
+
+class BaselineGrayscaleNet(nn.Module):
+    def __init__(self):
+        super(BaselineGrayscaleNet, self).__init__()
+        self.resnet = models.resnet18(pretrained=True)
+        self.resnet.conv1 = torch.nn.Conv2d(1, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+        for param in self.resnet.parameters():
+          param.requires_grad = True  #Unfreeze all parameters
+        num_features_in = self.resnet.fc.in_features
+        self.resnet.fc = nn.Linear(num_features_in, 22)
+
+    def forward(self, x):
+        x = self.resnet(x)
+        return x
+
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.resnet = models.resnet18(pretrained=True)
+        for param in self.resnet.parameters():
+          param.requires_grad = True  #Unfreeze all parameters
+        num_features_in = self.resnet.fc.in_features
+        self.resnet.fc = nn.Linear(num_features_in, 120)
+        self.fc2 = nn.Linear(120, 84)
+        # 22 classes in GravitySpy dataset
+        self.fc3 = nn.Linear(84, 22)
+        self.dropout = nn.Dropout(p=0.3)
+        self.bn = nn.BatchNorm1d(120)
+
+    def forward(self, x):
+        x = self.resnet(x)
+        x = self.bn(x)
+        x = F.relu(self.fc2(x))
+        x = self.dropout(x)
+        x = self.fc3(x)
+        return x
