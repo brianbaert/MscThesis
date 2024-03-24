@@ -74,22 +74,37 @@ class BaselineGrayscaleNet_resnet18(nn.Module):
 
 class BaselineColorNet_resnet18(nn.Module):
     def __init__(self):
+        # Call the parent class's constructor
         super(BaselineColorNet_resnet18, self).__init__()
+        # Initialize a pretrained ResNet-18 model
         self.resnet = models.resnet18(pretrained=True)
+        # Unfreeze all parameters in the model for training
         for param in self.resnet.parameters():
-          param.requires_grad = True  #Unfreeze all parameters
+          param.requires_grad = True  
+        # Get the number of features in the last layer of the model
         num_features_in = self.resnet.fc.in_features
+        # Replace the last layer with a new linear layer
         self.resnet.fc = nn.Linear(num_features_in, 120)
+        # Add a second fully connected layer
         self.fc2 = nn.Linear(120, 84)
-        # 22 classes in GravitySpy dataset
+        # Add a third fully connected layer for the 22 classes in the GravitySpy dataset
         self.fc3 = nn.Linear(84, 22)
+        # Add a dropout layer to prevent overfitting
         self.dropout = nn.Dropout(p=0.3)
+        # Add a batch normalization layer
         self.bn = nn.BatchNorm1d(120)
 
     def forward(self, x):
+        # Forward pass: compute the output of the model by passing the input through the model
         x = self.resnet(x)
+        # Apply batch normalization
         x = self.bn(x)
+        # Apply the ReLU activation function
         x = F.relu(self.fc2(x))
+        # Apply dropout
         x = self.dropout(x)
+        # Pass the result through the final fully connected layer
         x = self.fc3(x)
+        # Return the model's output
         return x
+
