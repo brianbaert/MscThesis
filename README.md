@@ -1,5 +1,24 @@
-# MscThesis
+# Enhancing Glitch Identification in Gravitational Wave Analysis: A Continual Learning Approach
+This repository contains the code and resources for my Master's thesis at Open Universiteit.
 
-The following repository contains code for my Msc thesis in AI @Open Universiteit during the academic year '23-'24.
+## Abstract
+tbd
 
-Title: "ENHANCING GLITCH IDENTIFICATION IN GRAVITATIONAL WAVE ANALYSIS: A CONTINUAL LEARNING APPROACH"
+## Table of Contents
+- Installation
+- Usage
+- Contributing
+- License
+
+## Installation
+tbd
+
+## Usage
+tbd
+
+## Contributing
+brian.baert@howest.be
+
+## License
+GPL 3.0
+
