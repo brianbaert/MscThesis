@@ -1,6 +1,9 @@
 # Enhancing Glitch Identification in Gravitational Wave Analysis: A Continual Learning Approach
 This repository contains the code and resources for my Master's thesis at Open Universiteit.
 
+## Author
+Brian Baert
+
 ## Abstract
 tbd
 
