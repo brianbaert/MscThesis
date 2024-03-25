@@ -20,5 +20,5 @@ tbd
 brian.baert@howest.be
 
 ## License
-GPL 3.0
+__`Msc-thesis`__ is distributed under the GPL-3.0 License. Please read the license before using __`Msc-thesis`__, which is distributed in the `LICENSE` file.
 
