@@ -1,12 +1,9 @@
 import torch
 from torch.utils.data import DataLoader, Dataset
-import torchvision.transforms as transforms
-import torchvision.transforms.functional as F
 import numpy as np
 import os
 import time
 from datetime import datetime
-from PIL import Image
 
 def checkpoint(model, filename):
     # Save the current state of the model to a file
@@ -86,37 +83,3 @@ def n_test_predictions(model, data_loader, classes, n):
                 temp+=1
         else:
             break
-
-
-class CustomCrop(object):
-    def __init__(self, top, left, height, width):
-        self.top = top
-        self.left = left
-        self.height = height
-        self.width = width
-
-    def __call__(self, img):
-        """
-        Crop the given image.
-        Args:
-            img (PIL Image): Image to be cropped.
-        Returns:
-            PIL Image: Cropped image.
-        """
-        return img.crop((self.left, self.top, self.left + self.width, self.top + self.height))
-
-def crop_and_resize_image(img, top, left, height, width, output_size):
-    """
-    Crop the given image and resize it to the desired output size.
-    Args:
-        img (PIL Image or Tensor): Image to be cropped.
-        top (int): Vertical component of the top-left corner of the crop box.
-        left (int): Horizontal component of the top-left corner of the crop box.
-        height (int): Height of the crop box.
-        width (int): Width of the crop box.
-        output_size (sequence or int): Desired output size (same semantics as resize).
-    Returns:
-        PIL Image or Tensor: Cropped and resized image.
-    """
-    cropped_img = F.resized_crop(img, top, left, height, width, size=output_size)
-    return cropped_img
