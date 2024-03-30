@@ -2,6 +2,10 @@ import torch
 import torch.nn as nn
 import torchvision.models as models
 import torch.nn.functional as F
+from typing import List, Optional
+from torch.nn import Module
+from avalanche.benchmarks.scenarios import CLExperience
+from avalanche.benchmarks.utils.flat_data import ConstantSequence
 
 #Bahaadini model
 class SingleViewModel(nn.Module):
@@ -108,4 +112,141 @@ class BaselineColorNet_resnet18(nn.Module):
         x = self.fc3(x)
         # Return the model's output
         return x
+
+################################################################################
+# Copyright (c) 2021 ContinualAI.                                              #
+# Copyrights licensed under the MIT License.                                   #
+# See the accompanying LICENSE file for terms.                                 #
+#                                                                              #
+# Date: 1-05-2020                                                              #
+# Author(s): Vincenzo Lomonaco, Antonio Carta                                  #
+# E-mail: contact@continualai.org                                              #
+# Website: avalanche.continualai.org                                           #
+################################################################################
+
+from avalanche.models.dynamic_modules import (
+    MultiTaskModule,
+    MultiHeadClassifier,
+)
+
+class DynamicModule(nn.Module):
+    """Dynamic Modules are Avalanche modules that can be incrementally
+    expanded to allow architectural modifications (multi-head
+    classifiers, progressive networks, ...).
+
+    Compared to pytoch Modules, they provide an additional method,
+    `model_adaptation`, which adapts the model given the current experience.
+    """
+
+    def __init__(self, auto_adapt=True):
+        """
+        :param auto_adapt: If True, will be adapted in the recursive adaptation loop
+                           else, will be adapted by a module in charge
+                           (i.e IncrementalClassifier inside MultiHeadClassifier)
+        """
+        super().__init__()
+        self._auto_adapt = auto_adapt
+
+
+    def recursive_adaptation(self, experience):
+        """
+        Calls self.adaptation recursively accross
+        the hierarchy of pytorch module childrens
+        """
+        avalanche_model_adaptation(self, experience)
+
+    def adaptation(self, experience: CLExperience):
+        """Adapt the module (freeze units, add units...) using the current
+        data. Optimizers must be updated after the model adaptation.
+
+        Avalanche strategies call this method to adapt the architecture
+        *before* processing each experience. Strategies also update the
+        optimizer automatically.
+
+        .. warning::
+            As a general rule, you should NOT use this method to train the
+            model. The dataset should be used only to check conditions which
+            require the model's adaptation, such as the discovery of new
+            classes or tasks.
+
+        .. warning::
+            This function only adapts the current module, to recursively adapt all
+            submodules use self.recursive_adaptation() instead
+
+        :param experience: the current experience.
+        :return:
+        """
+        pass
+
+    @property
+    def _adaptation_device(self):
+        """
+        The device to use when expanding (or otherwise adapting)
+        the model. Defaults to the current device of the fist
+        parameter listed using :meth:`parameters`.
+        """
+        return next(self.parameters()).device
+
+class SimpleCNN(DynamicModule):
+    def __init__(self, num_classes=10, in_features=64, initial_out_features=2, auto_adapt=True):
+        super(SimpleCNN, self).__init__()
+
+        self.features = nn.Sequential(
+            nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(32, 32, kernel_size=3, padding=0),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.Dropout(p=0.25),
+            nn.Conv2d(32, 64, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(64, 64, kernel_size=3, padding=0),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.Dropout(p=0.25),
+            nn.Conv2d(64, 64, kernel_size=1, padding=0),
+            nn.ReLU(inplace=True),
+            nn.AdaptiveMaxPool2d(1),
+            nn.Dropout(p=0.25),
+        )
+        self.classifier = nn.Linear(in_features, initial_out_features)
+        au_init = torch.zeros(initial_out_features, dtype=torch.int8)
+        self._auto_adapt = auto_adapt
+        self.register_buffer("active_units", au_init)
+
+    @torch.no_grad()
+    def adaptation(self, experience: CLExperience):
+        """If `dataset` contains unseen classes the classifier is expanded.
+
+        :param experience: data from the current experience.
+        :return:
+        """
+        super().adaptation(experience)
+        device = self._adaptation_device
+        in_features = self.classifier.in_features
+        old_nclasses = self.classifier.out_features
+        curr_classes = experience.classes_in_this_experience
+        print("Current classes: ", len(curr_classes))
+        new_nclasses = max(self.classifier.out_features, len(curr_classes)+self.classifier.out_features)
+        print("New classes: ", new_nclasses)
+
+        # update classifier weights
+        if old_nclasses == new_nclasses:
+            return
+        old_w, old_b = self.classifier.weight, self.classifier.bias
+        self.classifier = torch.nn.Linear(in_features, new_nclasses).to(device)
+        self.classifier.weight[:old_nclasses] = old_w
+        self.classifier.bias[:old_nclasses] = old_b
+        
+    @property
+    def _adaptation_device(self):
+        return next(self.parameters()).device
+
+    def forward(self, x):
+        x = self.features(x)
+        x = x.view(x.size(0), -1)
+        x = self.classifier(x)
+        return x
+
+
 
