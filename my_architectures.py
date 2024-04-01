@@ -7,7 +7,7 @@ from torch.nn import Module
 from avalanche.benchmarks.scenarios import CLExperience
 from avalanche.benchmarks.utils.flat_data import ConstantSequence
 from torch.nn.functional import relu, avg_pool2d
-from avalanche.models import MultiHeadClassifier, MultiTaskModule, DynamicModule
+from avalanche.models import BaseModel, MultiHeadClassifier, MultiTaskModule, DynamicModule
 from avalanche.models.dynamic_modules import (
     MultiTaskModule,
     MultiHeadClassifier,
@@ -146,7 +146,7 @@ class DynamicModule(nn.Module):
 # It is designed to work with RGB images of size 224x224 pixels.
 
 class SimpleCNN_32by32(DynamicModule):
-    def __init__(self, num_classes=10, in_features=64, initial_out_features=2, auto_adapt=True):
+    def __init__(self, num_classes=22, in_features=64, initial_out_features=2, auto_adapt=True):
         super(SimpleCNN_32by32, self).__init__()
         
         # Feature extraction layers
@@ -238,7 +238,7 @@ class SimpleCNN_32by32(DynamicModule):
 # It is designed to work with RGB images of size 224x224 pixels.
 
 class SimpleCNN_224by224(DynamicModule):
-    def __init__(self, num_classes=10, in_features=64, initial_out_features=2, auto_adapt=True):
+    def __init__(self, num_classes=22, in_features=64, initial_out_features=2, auto_adapt=True):
         super(SimpleCNN_224by224, self).__init__()
         # Feature extraction layers
         self.features = nn.Sequential(
@@ -327,7 +327,7 @@ class SimpleCNN_224by224(DynamicModule):
 """This is the slimmed ResNet as used by Lopez et al. in the GEM paper."""
 # THIS IS NOT WORKING YET, NEEDS TO BE ADJUSTED SO THE ADAPTATION METHOD IS PROVIDED
 
-class MLP(nn.Module):
+class MLP(nn.Module, BaseModel):
     def __init__(self, sizes):
         super(MLP, self).__init__()
         layers = []
@@ -339,7 +339,11 @@ class MLP(nn.Module):
 
     def forward(self, x):
         return self.net(x)
-
+        
+    def get_features(self, x):
+        x = x.contiguous()
+        x = x.view(x.size(0), self._input_size)
+        return self.features(x)
 
 def conv3x3(in_planes, out_planes, stride=1):
     return nn.Conv2d(
@@ -383,7 +387,7 @@ class BasicBlock(nn.Module):
         return out
 
 
-class ResNet(DynamicModule):
+class ResNet(DynamicModule, BaseModel):
     def __init__(self, block, num_blocks, num_classes, nf):
         super(ResNet, self).__init__()
         self.in_planes = nf
@@ -416,46 +420,15 @@ class ResNet(DynamicModule):
         out = self.linear(out)
         return out
 
+    def get_features(self, x):
+        x = x.contiguous()
+        x = x.view(x.size(0), self._input_size)
+        return self.features(x)
+
 
 def SlimResNet18(nclasses, nf=20):
     """Slimmed ResNet18."""
     return ResNet(BasicBlock, [2, 2, 2, 2], nclasses, nf)
 
 
-class MTSlimResNet18(MultiTaskModule, DynamicModule):
-    """MultiTask Slimmed ResNet18."""
-
-def __init__(self, nclasses, nf=20):
-    super().__init__()
-    self.in_planes = nf
-    block = BasicBlock
-    num_blocks = [2, 2, 2, 2]
-
-    self.conv1 = conv3x3(3, nf * 1)
-    self.bn1 = nn.BatchNorm2d(nf * 1)
-    self.layer1 = self._make_layer(block, nf * 1, num_blocks[0], stride=1)
-    self.layer2 = self._make_layer(block, nf * 2, num_blocks[1], stride=2)
-    self.layer3 = self._make_layer(block, nf * 4, num_blocks[2], stride=2)
-    self.layer4 = self._make_layer(block, nf * 8, num_blocks[3], stride=2)
-    self.linear = MultiHeadClassifier(nf * 8 * BasicBlock.expansion, nclasses)
-
-    def _make_layer(self, block, planes, num_blocks, stride):
-        strides = [stride] + [1] * (num_blocks - 1)
-        layers = []
-        for stride in strides:
-            layers.append(block(self.in_planes, planes, stride))
-            self.in_planes = planes * block.expansion
-        return nn.Sequential(*layers)
-
-    def forward(self, x, task_labels):
-        bsz = x.size(0)
-        out = relu(self.bn1(self.conv1(x.view(bsz, 3, 32, 32))))
-        out = self.layer1(out)
-        out = self.layer2(out)
-        out = self.layer3(out)
-        out = self.layer4(out)
-        out = avg_pool2d(out, 4)
-        out = out.view(out.size(0), -1)
-        out = self.linear(out, task_labels)
-        return out
 
