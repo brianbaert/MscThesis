@@ -157,7 +157,7 @@ def plot_f1_scores(f1, classes, name):
     figTemp.savefig(name)
     plt.close()
 
-def cl_train_loop(bm, cl_strategy, model, number_of_workers):
+def cl_train_loop(bm, cl_strategy, model, optimizer, number_of_workers):
     results = []
     print('Starting experiment with strategy:', cl_strategy)
     for experience in bm.train_stream:
@@ -169,6 +169,8 @@ def cl_train_loop(bm, cl_strategy, model, number_of_workers):
         if model.classifier.out_features != 22:
             model.adaptation(experience)
         print(model.classifier)
+        optimizer.param_groups[0]['lr'] = optimizer.param_groups[0]['lr'] + 0.1*optimizer.param_groups[0]['lr']
+        cl_strategy.eval(experience)
         results.append(cl_strategy.evaluator.all_metric_results)
     return results
 
