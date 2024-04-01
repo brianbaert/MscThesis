@@ -121,6 +121,16 @@ def plot_first_image(dataloader):
     # Assuming you have a DataLoader called 'my_dataloader'
     # plot_first_image(my_dataloader)
 
+def plot_batch_of_images(dataloader, nrow=4, padding=2):
+    for batch in dataloader:
+        images, labels = batch
+        grid = torchvision.utils.make_grid(images, nrow, padding, normalize=True)
+        grid_np = grid.numpy().transpose((1,2,0))
+        plt.imshow(grid_np)
+        plt.axis('off')
+        plt.show()
+        break
+
 def plot_confusion_matrix(cm, classes, name):
     plt.figure(figsize=(10,7))
     # Use seaborn heatmap for visualization
@@ -148,7 +158,8 @@ def plot_f1_scores(f1, classes, name):
     plt.close()
 
 def cl_train_loop(bm, cl_strategy, model, number_of_workers):
-    print('Starting experiment with LwF...')
+    results = []
+    print('Starting experiment with strategy:', cl_strategy)
     for experience in bm.train_stream:
         print("Start of experience: ", experience.current_experience)
         print("Current Classes: ", experience.classes_in_this_experience)
