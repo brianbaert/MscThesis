@@ -4,6 +4,9 @@ import torchvision.models as models
 import torch.nn.functional as F
 from typing import List, Optional
 from torch.nn import Module
+import avalanche as avl
+import avalanche.models
+from avalanche.evaluation import metrics as metrics
 from avalanche.benchmarks.scenarios import CLExperience
 from avalanche.benchmarks.utils.flat_data import ConstantSequence
 from torch.nn.functional import relu, avg_pool2d
@@ -323,112 +326,129 @@ class SimpleCNN_224by224(DynamicModule):
         x = self.classifier(x)
         return x
 
-    
-"""This is the slimmed ResNet as used by Lopez et al. in the GEM paper."""
-# THIS IS NOT WORKING YET, NEEDS TO BE ADJUSTED SO THE ADAPTATION METHOD IS PROVIDED
+class MultiHeadMLP(MultiTaskModule):
+    def __init__(self, input_size=32*32*3, hidden_size=256, hidden_layers=2,
+                 drop_rate=0, relu_act=True):
+        super().__init__()
+        self._input_size = input_size
+
+        layers = nn.Sequential(*(nn.Linear(input_size, hidden_size),
+                                 nn.ReLU(inplace=True) if relu_act else nn.Tanh(),
+                                 nn.Dropout(p=drop_rate)))
+        for layer_idx in range(hidden_layers - 1):
+            layers.add_module(
+                f"fc{layer_idx + 1}", nn.Sequential(
+                    *(nn.Linear(hidden_size, hidden_size),
+                      nn.ReLU(inplace=True) if relu_act else nn.Tanh(),
+                      nn.Dropout(p=drop_rate))))
+
+        self.features = nn.Sequential(*layers)
+        self.classifier = MultiHeadClassifier(hidden_size)
+
+    def forward(self, x, task_labels):
+        x = x.contiguous()
+        x = x.view(x.size(0), self._input_size)
+        x = self.features(x)
+        x = self.classifier(x, task_labels)
+        return x
+
 
 class MLP(nn.Module, BaseModel):
-    def __init__(self, sizes):
-        super(MLP, self).__init__()
+    def __init__(self, input_size=32*32*3, hidden_size=256, hidden_layers=2,
+                 output_size=10, drop_rate=0, relu_act=True, initial_out_features=0):
+        """
+        :param initial_out_features: if >0 override output size and build an
+            IncrementalClassifier with `initial_out_features` units as first.
+        """
+        super().__init__()
+        self._input_size = input_size
+
+        layers = nn.Sequential(*(nn.Linear(input_size, hidden_size),
+                                 nn.ReLU(inplace=True) if relu_act else nn.Tanh(),
+                                 nn.Dropout(p=drop_rate)))
+        for layer_idx in range(hidden_layers - 1):
+            layers.add_module(
+                f"fc{layer_idx + 1}", nn.Sequential(
+                    *(nn.Linear(hidden_size, hidden_size),
+                      nn.ReLU(inplace=True) if relu_act else nn.Tanh(),
+                      nn.Dropout(p=drop_rate))))
+
+        self.features = nn.Sequential(*layers)
+
+        if initial_out_features > 0:
+            self.classifier = avalanche.models.IncrementalClassifier(in_features=hidden_size,
+                                                                     initial_out_features=initial_out_features)
+        else:
+            self.classifier = nn.Linear(hidden_size, output_size)
+
+    def forward(self, x):
+        x = x.contiguous()
+        x = x.view(x.size(0), self._input_size)
+        x = self.features(x)
+        x = self.classifier(x)
+        return x
+
+    def get_features(self, x):
+        x = x.contiguous()
+        x = x.view(x.size(0), self._input_size)
+        return self.features(x)
+
+
+class SI_CNN(MultiTaskModule):
+    def __init__(self, hidden_size=512):
+        super().__init__()
+        layers = nn.Sequential(*(nn.Conv2d(in_channels=3, out_channels=32, kernel_size=(3, 3), padding=(1, 1)),
+                                 nn.ReLU(inplace=True),
+                                 nn.Conv2d(in_channels=32, out_channels=32, kernel_size=(3, 3)),
+                                 nn.ReLU(inplace=True),
+                                 nn.MaxPool2d((2, 2)),
+                                 nn.Dropout(p=0.25),
+                                 nn.Conv2d(in_channels=32, out_channels=64, kernel_size=(3, 3), padding=(1, 1)),
+                                 nn.ReLU(inplace=True),
+                                 nn.Conv2d(in_channels=64, out_channels=64, kernel_size=(3, 3)),
+                                 nn.ReLU(inplace=True),
+                                 nn.MaxPool2d((2, 2)),
+                                 nn.Dropout(p=0.25),
+                                 nn.Flatten(),
+                                 nn.Linear(2304, hidden_size),
+                                 nn.ReLU(inplace=True),
+                                 nn.Dropout(p=0.5)
+                                 ))
+        self.features = nn.Sequential(*layers)
+        self.classifier = MultiHeadClassifier(hidden_size, initial_out_features=10)
+
+    def forward(self, x, task_labels):
+        x = self.features(x)
+        x = self.classifier(x, task_labels)
+        return x
+
+
+class FlattenP(nn.Module):
+    '''A nn-module to flatten a multi-dimensional tensor to 2-dim tensor.'''
+
+    def forward(self, x):
+        batch_size = x.size(0)   # first dimenstion should be batch-dimension.
+        return x.view(batch_size, -1)
+
+    def __repr__(self):
+        tmpstr = self.__class__.__name__ + '()'
+        return tmpstr
+
+
+class MLP_gss(nn.Module):
+    def __init__(self, sizes, bias=True):
+        super(MLP_gss, self).__init__()
         layers = []
+
         for i in range(0, len(sizes) - 1):
-            layers.append(nn.Linear(sizes[i], sizes[i + 1]))
-            if i < (len(sizes) - 2):
+            if i < (len(sizes)-2):
+                layers.append(nn.Linear(sizes[i], sizes[i + 1]))
                 layers.append(nn.ReLU())
-        self.net = nn.Sequential(*layers)
+            else:
+                layers.append(nn.Linear(sizes[i], sizes[i + 1], bias=bias))
+
+        self.net = nn.Sequential(FlattenP(), *layers)
 
     def forward(self, x):
         return self.net(x)
-        
-    def get_features(self, x):
-        x = x.contiguous()
-        x = x.view(x.size(0), self._input_size)
-        return self.features(x)
-
-def conv3x3(in_planes, out_planes, stride=1):
-    return nn.Conv2d(
-        in_planes,
-        out_planes,
-        kernel_size=3,
-        stride=stride,
-        padding=1,
-        bias=False,
-    )
-
-
-class BasicBlock(nn.Module):
-    expansion = 1
-
-    def __init__(self, in_planes, planes, stride=1):
-        super(BasicBlock, self).__init__()
-        self.conv1 = conv3x3(in_planes, planes, stride)
-        self.bn1 = nn.BatchNorm2d(planes)
-        self.conv2 = conv3x3(planes, planes)
-        self.bn2 = nn.BatchNorm2d(planes)
-
-        self.shortcut = nn.Sequential()
-        if stride != 1 or in_planes != self.expansion * planes:
-            self.shortcut = nn.Sequential(
-                nn.Conv2d(
-                    in_planes,
-                    self.expansion * planes,
-                    kernel_size=1,
-                    stride=stride,
-                    bias=False,
-                ),
-                nn.BatchNorm2d(self.expansion * planes),
-            )
-
-    def forward(self, x):
-        out = relu(self.bn1(self.conv1(x)))
-        out = self.bn2(self.conv2(out))
-        out += self.shortcut(x)
-        out = relu(out)
-        return out
-
-
-class ResNet(DynamicModule, BaseModel):
-    def __init__(self, block, num_blocks, num_classes, nf):
-        super(ResNet, self).__init__()
-        self.in_planes = nf
-
-        self.conv1 = conv3x3(3, nf * 1)
-        self.bn1 = nn.BatchNorm2d(nf * 1)
-        self.layer1 = self._make_layer(block, nf * 1, num_blocks[0], stride=1)
-        self.layer2 = self._make_layer(block, nf * 2, num_blocks[1], stride=2)
-        self.layer3 = self._make_layer(block, nf * 4, num_blocks[2], stride=2)
-        self.layer4 = self._make_layer(block, nf * 8, num_blocks[3], stride=2)
-        self.linear = nn.Linear(nf * 8 * block.expansion, num_classes)
-
-    def _make_layer(self, block, planes, num_blocks, stride):
-        strides = [stride] + [1] * (num_blocks - 1)
-        layers = []
-        for stride in strides:
-            layers.append(block(self.in_planes, planes, stride))
-            self.in_planes = planes * block.expansion
-        return nn.Sequential(*layers)
-
-    def forward(self, x):
-        bsz = x.size(0)
-        out = relu(self.bn1(self.conv1(x.view(bsz, 3, 32, 32))))
-        out = self.layer1(out)
-        out = self.layer2(out)
-        out = self.layer3(out)
-        out = self.layer4(out)
-        out = avg_pool2d(out, 4)
-        out = out.view(out.size(0), -1)
-        out = self.linear(out)
-        return out
-
-    def get_features(self, x):
-        x = x.contiguous()
-        x = x.view(x.size(0), self._input_size)
-        return self.features(x)
-
-
-def SlimResNet18(nclasses, nf=20):
-    """Slimmed ResNet18."""
-    return ResNet(BasicBlock, [2, 2, 2, 2], nclasses, nf)
-
-
 

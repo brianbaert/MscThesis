@@ -3,6 +3,9 @@ import torchvision
 import torchvision.transforms as transforms
 import my_utils
 
+# Define the bounding box coordinates
+top, left, height, width = 60, 100, 480, 580
+
 #Transformations needed
 transformGray = transforms.Compose([
      transforms.Resize((140,170)),
@@ -24,15 +27,18 @@ transformAV = transforms.Compose([
      transforms.Normalize((0.5),(0.5))
     ])
 
+transformAV_Crop = transforms.Compose([
+     my_utils.CustomCrop(top, left, height, width),
+     transforms.Resize((32,32)),
+     transforms.ToTensor(),
+     transforms.Normalize((0.5),(0.5))
+    ])
+
 transformAV32 = transforms.Compose([
      transforms.Resize((32,32)),
      transforms.ToTensor()
     ])
 
-# Define the bounding box coordinates
-top, left, height, width = 60, 100, 480, 580
-
-# Create the custom crop transformation
 transformAV32_Crop = transforms.Compose([
     my_utils.CustomCrop(top, left, height, width),
     transforms.Resize((32,32)),
