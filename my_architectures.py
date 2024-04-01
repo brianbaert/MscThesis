@@ -6,54 +6,12 @@ from typing import List, Optional
 from torch.nn import Module
 from avalanche.benchmarks.scenarios import CLExperience
 from avalanche.benchmarks.utils.flat_data import ConstantSequence
-
-#Bahaadini model
-class SingleViewModel(nn.Module):
-    def __init__(self):
-        super(SingleViewModel, self).__init__()
-
-        # First Convolutional Layer with Regularization
-        self.conv1 = nn.Conv2d(3, 32, kernel_size=5, stride=1, padding=2)
-        self.batch_norm1 = nn.BatchNorm2d(32)
-
-        # Second Convolutional Layer with Regularization
-        self.conv2 = nn.Conv2d(32, 64, kernel_size=5, stride=1, padding=2)
-        self.batch_norm2 = nn.BatchNorm2d(64)
-
-        # Fully Connected Layer
-        self.fc1 = nn.Linear(64*35*42, 256)
-
-        # Output Layer
-        self.fc2 = nn.Linear(256, 22)
-
-    def forward(self, x):
-        # Applying first conv layer followed by maxpool and dropout
-        x = F.relu(self.batch_norm1(self.conv1(x)))
-        x = F.max_pool2d(x, kernel_size=2, stride=2)
-        x = F.dropout(x, p=0.5)
-
-        # Applying second conv layer followed by maxpool and dropout
-        x = F.relu(self.batch_norm2(self.conv2(x)))
-        x = F.max_pool2d(x, kernel_size=2, stride=2)
-        x = F.dropout(x, p=0.5)
-
-        # Flattening the tensor output before feeding it to fully connected layers
-        x = x.view(-1, self.num_flat_features(x))
-
-        # Applying fully connected layer followed by dropout
-        x = F.relu(self.fc1(x))
-        x = F.dropout(x, p=0.05)
-
-        # Output layer with softmax activation function
-        out = self.fc2(x)
-        return out
-
-    def num_flat_features(self, x):
-        size = x.size()[1:]  # All dimensions except batch dimension
-        num_features = 1
-        for s in size:
-            num_features *= s
-        return num_features
+from torch.nn.functional import relu, avg_pool2d
+from avalanche.models import MultiHeadClassifier, MultiTaskModule, DynamicModule
+from avalanche.models.dynamic_modules import (
+    MultiTaskModule,
+    MultiHeadClassifier,
+)
 
 class BaselineGrayscaleNet_resnet18(nn.Module):
     def __init__(self):
@@ -124,11 +82,6 @@ class BaselineColorNet_resnet18(nn.Module):
 # Website: avalanche.continualai.org                                           #
 ################################################################################
 
-from avalanche.models.dynamic_modules import (
-    MultiTaskModule,
-    MultiHeadClassifier,
-)
-
 class DynamicModule(nn.Module):
     """Dynamic Modules are Avalanche modules that can be incrementally
     expanded to allow architectural modifications (multi-head
@@ -187,10 +140,16 @@ class DynamicModule(nn.Module):
         """
         return next(self.parameters()).device
 
-class SimpleCNN(DynamicModule):
-    def __init__(self, num_classes=10, in_features=64, initial_out_features=2, auto_adapt=True):
-        super(SimpleCNN, self).__init__()
+# SimpleCNN_32y32 architecture
+# -------------------------------
+# This class defines a simple convolutional neural network (CNN) for image classification.
+# It is designed to work with RGB images of size 224x224 pixels.
 
+class SimpleCNN_32by32(DynamicModule):
+    def __init__(self, num_classes=10, in_features=64, initial_out_features=2, auto_adapt=True):
+        super(SimpleCNN_32by32, self).__init__()
+        
+        # Feature extraction layers
         self.features = nn.Sequential(
             nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1),
             nn.ReLU(inplace=True),
@@ -209,30 +168,131 @@ class SimpleCNN(DynamicModule):
             nn.AdaptiveMaxPool2d(1),
             nn.Dropout(p=0.25),
         )
+        # Linear classifier
         self.classifier = nn.Linear(in_features, initial_out_features)
+        # Internal tracking of active units
         au_init = torch.zeros(initial_out_features, dtype=torch.int8)
         self._auto_adapt = auto_adapt
         self.register_buffer("active_units", au_init)
 
     @torch.no_grad()
     def adaptation(self, experience: CLExperience):
-        """If `dataset` contains unseen classes the classifier is expanded.
-
-        :param experience: data from the current experience.
-        :return:
+        """
+        If `dataset` contains unseen classes, the classifier is expanded.
+        Args:
+            experience (CLExperience): Data from the current experience.
+        Returns:
+            None
         """
         super().adaptation(experience)
         device = self._adaptation_device
+        # Retrieve the existing classifier's input features and output features
         in_features = self.classifier.in_features
         old_nclasses = self.classifier.out_features
+        # Determines the new number of classes based on the current experience
         curr_classes = experience.classes_in_this_experience
-        print("Current classes: ", len(curr_classes))
+        #print("Current classes: ", len(curr_classes))
         new_nclasses = max(self.classifier.out_features, len(curr_classes)+self.classifier.out_features)
-        print("New classes: ", new_nclasses)
+        #print("New classes: ", new_nclasses)
 
         # update classifier weights
+        # if the number of classes remains the same, no adaptation is needed.
         if old_nclasses == new_nclasses:
             return
+        old_w, old_b = self.classifier.weight, self.classifier.bias
+        # Creation of a new classifier with updated output features
+        # copies the weights and biases from the old classifier to the new one
+        # the adapted classifier is placed on the same device
+        self.classifier = torch.nn.Linear(in_features, new_nclasses).to(device)
+        self.classifier.weight[:old_nclasses] = old_w
+        self.classifier.bias[:old_nclasses] = old_b
+        
+    @property
+    def _adaptation_device(self):
+        """
+        Returns the device (CPU or GPU) of the first parameter in the model.
+
+        Returns:
+            torch.device: The device where the model's parameters reside.
+        """   
+        return next(self.parameters()).device
+
+    def forward(self, x):
+        """
+        Forward pass of the neural network model.
+
+        Args:
+            x (torch.Tensor): Input data.
+
+        Returns:
+            torch.Tensor: Output predictions.
+        """    
+        x = self.features(x)
+        x = x.view(x.size(0), -1)
+        x = self.classifier(x)
+        return x
+
+# SimpleCNN_224by224 architecture
+# -------------------------------
+# This class defines a simple convolutional neural network (CNN) for image classification.
+# It is designed to work with RGB images of size 224x224 pixels.
+
+class SimpleCNN_224by224(DynamicModule):
+    def __init__(self, num_classes=10, in_features=64, initial_out_features=2, auto_adapt=True):
+        super(SimpleCNN_224by224, self).__init__()
+        # Feature extraction layers
+        self.features = nn.Sequential(
+            nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(32, 32, kernel_size=3, padding=0),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.Dropout(p=0.25),
+            nn.Conv2d(32, 64, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(64, 64, kernel_size=3, padding=0),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.Dropout(p=0.25),
+            nn.Conv2d(64, 64, kernel_size=1, padding=0),
+            nn.ReLU(inplace=True),
+            nn.AdaptiveMaxPool2d(1), # Produces a fixed-size output
+            nn.Dropout(p=0.25),
+        )
+        # Linear classifier
+        self.classifier = nn.Linear(in_features, initial_out_features)
+        # Internal tracking of active units
+        au_init = torch.zeros(initial_out_features, dtype=torch.int8)
+        self._auto_adapt = auto_adapt
+        self.register_buffer("active_units", au_init)
+
+    @torch.no_grad()
+    def adaptation(self, experience: CLExperience):
+        """
+        If `dataset` contains unseen classes, the classifier is expanded.
+        Args:
+            experience (CLExperience): Data from the current experience.
+        Returns:
+            None
+        """
+        super().adaptation(experience)
+        device = self._adaptation_device
+        # Retrieve the existing classifier's input features and output features
+        in_features = self.classifier.in_features
+        old_nclasses = self.classifier.out_features
+        # Determines the new number of classes based on the current experience
+        curr_classes = experience.classes_in_this_experience
+        #print("Current classes: ", len(curr_classes))
+        new_nclasses = max(self.classifier.out_features, len(curr_classes)+self.classifier.out_features)
+        #print("New classes: ", new_nclasses)
+
+        # update classifier weights
+        # if the number of classes remains the same, no adaptation is needed.
+        if old_nclasses == new_nclasses:
+            return
+        # Creation of a new classifier with updated output features
+        # copies the weights and biases from the old classifier to the new one
+        # the adapted classifier is placed on the same device
         old_w, old_b = self.classifier.weight, self.classifier.bias
         self.classifier = torch.nn.Linear(in_features, new_nclasses).to(device)
         self.classifier.weight[:old_nclasses] = old_w
@@ -240,13 +300,162 @@ class SimpleCNN(DynamicModule):
         
     @property
     def _adaptation_device(self):
+        """
+        Returns the device (CPU or GPU) of the first parameter in the model.
+
+        Returns:
+            torch.device: The device where the model's parameters reside.
+        """      
         return next(self.parameters()).device
 
     def forward(self, x):
+        """
+        Forward pass of the neural network model.
+
+        Args:
+            x (torch.Tensor): Input data.
+
+        Returns:
+            torch.Tensor: Output predictions.
+        """        
         x = self.features(x)
         x = x.view(x.size(0), -1)
         x = self.classifier(x)
         return x
 
+    
+"""This is the slimmed ResNet as used by Lopez et al. in the GEM paper."""
+# THIS IS NOT WORKING YET, NEEDS TO BE ADJUSTED SO THE ADAPTATION METHOD IS PROVIDED
 
+class MLP(nn.Module):
+    def __init__(self, sizes):
+        super(MLP, self).__init__()
+        layers = []
+        for i in range(0, len(sizes) - 1):
+            layers.append(nn.Linear(sizes[i], sizes[i + 1]))
+            if i < (len(sizes) - 2):
+                layers.append(nn.ReLU())
+        self.net = nn.Sequential(*layers)
+
+    def forward(self, x):
+        return self.net(x)
+
+
+def conv3x3(in_planes, out_planes, stride=1):
+    return nn.Conv2d(
+        in_planes,
+        out_planes,
+        kernel_size=3,
+        stride=stride,
+        padding=1,
+        bias=False,
+    )
+
+
+class BasicBlock(nn.Module):
+    expansion = 1
+
+    def __init__(self, in_planes, planes, stride=1):
+        super(BasicBlock, self).__init__()
+        self.conv1 = conv3x3(in_planes, planes, stride)
+        self.bn1 = nn.BatchNorm2d(planes)
+        self.conv2 = conv3x3(planes, planes)
+        self.bn2 = nn.BatchNorm2d(planes)
+
+        self.shortcut = nn.Sequential()
+        if stride != 1 or in_planes != self.expansion * planes:
+            self.shortcut = nn.Sequential(
+                nn.Conv2d(
+                    in_planes,
+                    self.expansion * planes,
+                    kernel_size=1,
+                    stride=stride,
+                    bias=False,
+                ),
+                nn.BatchNorm2d(self.expansion * planes),
+            )
+
+    def forward(self, x):
+        out = relu(self.bn1(self.conv1(x)))
+        out = self.bn2(self.conv2(out))
+        out += self.shortcut(x)
+        out = relu(out)
+        return out
+
+
+class ResNet(DynamicModule):
+    def __init__(self, block, num_blocks, num_classes, nf):
+        super(ResNet, self).__init__()
+        self.in_planes = nf
+
+        self.conv1 = conv3x3(3, nf * 1)
+        self.bn1 = nn.BatchNorm2d(nf * 1)
+        self.layer1 = self._make_layer(block, nf * 1, num_blocks[0], stride=1)
+        self.layer2 = self._make_layer(block, nf * 2, num_blocks[1], stride=2)
+        self.layer3 = self._make_layer(block, nf * 4, num_blocks[2], stride=2)
+        self.layer4 = self._make_layer(block, nf * 8, num_blocks[3], stride=2)
+        self.linear = nn.Linear(nf * 8 * block.expansion, num_classes)
+
+    def _make_layer(self, block, planes, num_blocks, stride):
+        strides = [stride] + [1] * (num_blocks - 1)
+        layers = []
+        for stride in strides:
+            layers.append(block(self.in_planes, planes, stride))
+            self.in_planes = planes * block.expansion
+        return nn.Sequential(*layers)
+
+    def forward(self, x):
+        bsz = x.size(0)
+        out = relu(self.bn1(self.conv1(x.view(bsz, 3, 32, 32))))
+        out = self.layer1(out)
+        out = self.layer2(out)
+        out = self.layer3(out)
+        out = self.layer4(out)
+        out = avg_pool2d(out, 4)
+        out = out.view(out.size(0), -1)
+        out = self.linear(out)
+        return out
+
+
+def SlimResNet18(nclasses, nf=20):
+    """Slimmed ResNet18."""
+    return ResNet(BasicBlock, [2, 2, 2, 2], nclasses, nf)
+
+
+class MTSlimResNet18(MultiTaskModule, DynamicModule):
+    """MultiTask Slimmed ResNet18."""
+
+def __init__(self, nclasses, nf=20):
+    super().__init__()
+    self.in_planes = nf
+    block = BasicBlock
+    num_blocks = [2, 2, 2, 2]
+
+    self.conv1 = conv3x3(3, nf * 1)
+    self.bn1 = nn.BatchNorm2d(nf * 1)
+    self.layer1 = self._make_layer(block, nf * 1, num_blocks[0], stride=1)
+    self.layer2 = self._make_layer(block, nf * 2, num_blocks[1], stride=2)
+    self.layer3 = self._make_layer(block, nf * 4, num_blocks[2], stride=2)
+    self.layer4 = self._make_layer(block, nf * 8, num_blocks[3], stride=2)
+    self.linear = MultiHeadClassifier(nf * 8 * BasicBlock.expansion, nclasses)
+
+    def _make_layer(self, block, planes, num_blocks, stride):
+        strides = [stride] + [1] * (num_blocks - 1)
+        layers = []
+        for stride in strides:
+            layers.append(block(self.in_planes, planes, stride))
+            self.in_planes = planes * block.expansion
+        return nn.Sequential(*layers)
+
+    def forward(self, x, task_labels):
+        bsz = x.size(0)
+        out = relu(self.bn1(self.conv1(x.view(bsz, 3, 32, 32))))
+        out = self.layer1(out)
+        out = self.layer2(out)
+        out = self.layer3(out)
+        out = self.layer4(out)
+        out = avg_pool2d(out, 4)
+        out = out.view(out.size(0), -1)
+        out = self.linear(out, task_labels)
+        return out
 

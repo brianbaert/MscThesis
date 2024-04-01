@@ -7,10 +7,14 @@ import os
 import time
 from datetime import datetime
 from PIL import Image
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 
 def checkpoint(model, filename):
     # Save the current state of the model to a file
     torch.save(model.state_dict(), filename)
+    print("Saved Pytorch model state to ", filename)
 
 def resume(model, filename):
     # Load the state of the model from a file
@@ -24,6 +28,9 @@ def calculate_accuracy(outputs, labels):
     # Calculate the accuracy by dividing the number of correct predictions by the total number of predictions
     accuracy = correct / len(labels)
     return accuracy
+
+def classes_to_indices(classes):
+    return {c: i for i, c in enumerate(classes)}
 
 def timeit(method):
     def timed(*args, **kw):
@@ -87,6 +94,72 @@ def n_test_predictions(model, data_loader, classes, n):
         else:
             break
 
+def plot_first_image(dataloader):
+    """
+    Plots the first image from a given dataloader.
+    Args:
+        dataloader (torch.utils.data.DataLoader): DataLoader containing image data.
+    Returns:
+        None
+    """
+    # Get the first batch from the dataloader
+    batch = next(iter(dataloader))
+
+    # Extract the first image and its label (if available)
+    image, label = batch
+
+    # Convert image tensor to numpy array
+    image_np = image[0].numpy()
+
+    # Create a subplot and display the image
+    plt.figure(figsize=(4, 4))
+    plt.imshow(image_np.transpose(1, 2, 0))  # Transpose to (H, W, C) format
+    plt.axis('off')  # Hide axes
+    plt.title(f"Label: {label[0]}") if label is not None else plt.title("First Image")
+    plt.show()
+    # Example usage:
+    # Assuming you have a DataLoader called 'my_dataloader'
+    # plot_first_image(my_dataloader)
+
+def plot_confusion_matrix(cm, classes, name):
+    plt.figure(figsize=(10,7))
+    # Use seaborn heatmap for visualization
+    sns.heatmap(cm, annot=True, cmap='Blues', fmt='d', xticklabels=classes, yticklabels=classes)
+    plt.xlabel('Predicted')
+    plt.ylabel('Actual')
+    figTemp = plt.gcf()
+    plt.show()
+    plt.draw()
+    figTemp.savefig(name)
+    plt.close()
+
+def plot_f1_scores(f1, classes, name):
+    # Create a horizontal bar plot for F1 scores with different colors
+    plt.figure(figsize=(10,7))
+    colors = plt.cm.viridis(np.linspace(0, 1, len(classes)))
+    plt.barh(np.arange(len(classes)), f1, color=colors, align='center', alpha=0.5)
+    plt.yticks(np.arange(len(classes)), classes)
+    plt.xlabel('F1 Score')
+    plt.title('F1 Score for Each Class')
+    figTemp = plt.gcf()
+    plt.show()
+    plt.draw()
+    figTemp.savefig(name)
+    plt.close()
+
+def cl_train_loop(bm, cl_strategy, model, number_of_workers):
+    print('Starting experiment with LwF...')
+    for experience in bm.train_stream:
+        print("Start of experience: ", experience.current_experience)
+        print("Current Classes: ", experience.classes_in_this_experience)
+        print(len(experience.classes_in_this_experience))
+        cl_strategy.train(experience, num_workers=number_of_workers)
+        print('Training completed')
+        if model.classifier.out_features != 22:
+            model.adaptation(experience)
+        print(model.classifier)
+        results.append(cl_strategy.evaluator.all_metric_results)
+    return results
 
 class CustomCrop(object):
     def __init__(self, top, left, height, width):
