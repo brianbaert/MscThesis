@@ -21,7 +21,7 @@ class BaselineGrayscaleNet_resnet18(nn.Module):
         # Call the class constructor
         super(BaselineGrayscaleNet_resnet18, self).__init__()
         # Initialize a pretrained ResNet-18 model
-        self.resnet = models.resnet18(pretrained=True)
+        self.resnet = models.resnet18(weights='DEFAULT')
         # Replace the first convolutional layer to accept grayscale images (1 channel instead of 3)
         self.resnet.conv1 = torch.nn.Conv2d(1, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
         # Unfreeze all parameters in the model for training
@@ -43,7 +43,7 @@ class BaselineColorNet_resnet18(nn.Module):
         # Call the parent class's constructor
         super(BaselineColorNet_resnet18, self).__init__()
         # Initialize a pretrained ResNet-18 model
-        self.resnet = models.resnet18(pretrained=True)
+        self.resnet = models.resnet18(weights='DEFAULT')
         # Unfreeze all parameters in the model for training
         for param in self.resnet.parameters():
           param.requires_grad = True  
