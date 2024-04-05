@@ -17,7 +17,7 @@ from avalanche.models.dynamic_modules import (
 )
 
 class BaselineGrayscaleNet_resnet18(nn.Module):
-    def __init__(self):
+    def __init__(self, num_classes=10):
         # Call the class constructor
         super(BaselineGrayscaleNet_resnet18, self).__init__()
         # Initialize a pretrained ResNet-18 model
@@ -30,7 +30,7 @@ class BaselineGrayscaleNet_resnet18(nn.Module):
         # Get the number of features (inputs) in the last layer of the model
         num_features_in = self.resnet.fc.in_features
         # Replace the last layer with a new linear layer that matches the number of classes in the dataset, 22
-        self.resnet.fc = nn.Linear(num_features_in, 22)
+        self.resnet.fc = nn.Linear(num_features_in, num_classes)
 
     def forward(self, x):
         # Forward pass: compute the output of the model by passing the input through the model
@@ -39,7 +39,7 @@ class BaselineGrayscaleNet_resnet18(nn.Module):
         return x
 
 class BaselineColorNet_resnet18(nn.Module):
-    def __init__(self):
+    def __init__(self, num_classes=10):
         # Call the parent class's constructor
         super(BaselineColorNet_resnet18, self).__init__()
         # Initialize a pretrained ResNet-18 model
@@ -53,8 +53,8 @@ class BaselineColorNet_resnet18(nn.Module):
         self.resnet.fc = nn.Linear(num_features_in, 120)
         # Add a second fully connected layer
         self.fc2 = nn.Linear(120, 84)
-        # Add a third fully connected layer for the 22 classes in the GravitySpy dataset
-        self.fc3 = nn.Linear(84, 22)
+        # Add a third fully connected layer for the num_classes classes in the GravitySpy dataset
+        self.fc3 = nn.Linear(84, num_classes)
         # Add a dropout layer to prevent overfitting
         self.dropout = nn.Dropout(p=0.3)
         # Add a batch normalization layer
