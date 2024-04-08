@@ -3,10 +3,8 @@ import torch.nn as nn
 import torchvision.models as models
 import torch.nn.functional as F
 from typing import List, Optional
-from torch.nn import Module
 import avalanche as avl
 import avalanche.models
-from avalanche.models import NCMCLassifier
 from avalanche.models import SCRModel
 from avalanche.evaluation import metrics as metrics
 from avalanche.benchmarks.scenarios import CLExperience
