@@ -2,6 +2,7 @@ import torch
 from torch.utils.data import DataLoader, Dataset
 import torchvision.transforms as transforms
 import torchvision.transforms.functional as F
+from sklearn.manifold import TSNE
 import numpy as np
 import os
 import time
@@ -181,12 +182,47 @@ def cl_simple_train_loop(bm, cl_strategy, model, optimizer, number_of_workers):
     for experience in bm.train_stream:
         print("Start of experience: ", experience.current_experience)
         print("Current Classes: ", experience.classes_in_this_experience)
-        print(len(experience.classes_in_this_experience))
-        cl_strategy.train(experience)
-        print('Training completed')
-        cl_strategy.eval(experience)
-        results.append(cl_strategy.evaluator.all_metric_results)
+        res = cl_strategy.train(experience, eval_streams=[bm.test_stream])
+        print("Training completed")
+        print("Computing accuracy on the whole test set")
+        results.append(cl_strategy.eval(bm.test_stream))
+    all_metrics = cl_strategy.evaluator.get_all_metrics()
+    print(f"Stored metrics: {list(all_metrics.keys())}")
     return results
+
+def plot_tSNE_data_embedding(model, dataloader):
+    # Set the model to evaluation mode
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    model = model.to(device)
+    model.eval()
+    
+    # Initialize lists to store embeddings and labels
+    embeddings = []
+    labels = []
+
+    # Iterate over the data and collect embeddings
+    for inputs, targets in dataloader:
+        outputs = model(inputs)
+        embeddings.append(outputs.cpu().numpy())
+        labels.append(targets.cpu().numpy())
+
+
+    # Concatenate embeddings and labels
+    embeddings = np.concatenate(embeddings)
+    labels = np.concatenate(labels)
+
+    # Apply t-SNE to reduce dimensionality
+    tsne = TSNE(n_components=2, perplexity=30, n_iter=300)
+    embeddings_tsne = tsne.fit_transform(embeddings)
+    
+    # Create a scatter plot of the t-SNE visualization
+    plt.figure(figsize=(10, 8))
+    plt.scatter(embeddings_tsne[:, 0], embeddings_tsne[:, 1], c=labels, cmap='viridis')
+    plt.colorbar(label='Class')
+    plt.title('t-SNE Visualization of Data Embeddings')
+    plt.xlabel('t-SNE Dimension 1')
+    plt.ylabel('t-SNE Dimension 2')
+    plt.show()
 
 class CustomCrop(object):
     def __init__(self, top, left, height, width):
