@@ -190,7 +190,7 @@ def cl_simple_train_loop(bm, cl_strategy, model, optimizer, number_of_workers):
     print(f"Stored metrics: {list(all_metrics.keys())}")
     return results
 
-def plot_tSNE_data_embedding(model, dataloader):
+def plot_tSNE_data_embedding(model, dataloader, name):
     # Set the model to evaluation mode
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = model.to(device)
@@ -203,8 +203,8 @@ def plot_tSNE_data_embedding(model, dataloader):
     # Iterate over the data and collect embeddings
     for inputs, targets in dataloader:
         outputs = model(inputs)
-        embeddings.append(outputs.cpu().numpy())
-        labels.append(targets.cpu().numpy())
+        embeddings.append(outputs.detach().numpy())
+        labels.append(targets.detach().numpy())
 
 
     # Concatenate embeddings and labels
@@ -220,9 +220,13 @@ def plot_tSNE_data_embedding(model, dataloader):
     plt.scatter(embeddings_tsne[:, 0], embeddings_tsne[:, 1], c=labels, cmap='viridis')
     plt.colorbar(label='Class')
     plt.title('t-SNE Visualization of Data Embeddings')
+    figTemp = plt.gcf()
     plt.xlabel('t-SNE Dimension 1')
     plt.ylabel('t-SNE Dimension 2')
     plt.show()
+    plt.draw()
+    figTemp.savefig(name)
+    plt.close()
 
 class CustomCrop(object):
     def __init__(self, top, left, height, width):
