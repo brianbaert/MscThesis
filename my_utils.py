@@ -4,6 +4,7 @@ import torchvision.transforms as transforms
 import torchvision.transforms.functional as F
 from sklearn.manifold import TSNE
 import numpy as np
+import pandas as pd
 import os
 import time
 from datetime import datetime
@@ -135,7 +136,7 @@ def plot_batch_of_images(dataloader, nrow=4, padding=2):
 def plot_confusion_matrix(cm, classes, name):
     plt.figure(figsize=(10,7))
     # Use seaborn heatmap for visualization
-    sns.heatmap(cm, annot=True, cmap='Blues', fmt='d', xticklabels=classes, yticklabels=classes)
+    sns.heatmap(cm, annot=True, cmap='viridis', fmt='d', xticklabels=classes, yticklabels=classes)
     plt.xlabel('Predicted')
     plt.ylabel('Actual')
     figTemp = plt.gcf()
@@ -158,7 +159,7 @@ def plot_f1_scores(f1, classes, name):
     figTemp.savefig(name)
     plt.close()
 
-def cl_adaptive_train_loop(bm, cl_strategy, model, optimizer, number_of_workers):
+def cl_adaptive_train_loop(bm, cl_strategy, model, optimizer, number_of_workers, classes, scr=False):
     results = []
     print('Starting experiment with strategy:', cl_strategy)
     for experience in bm.train_stream:
@@ -167,30 +168,83 @@ def cl_adaptive_train_loop(bm, cl_strategy, model, optimizer, number_of_workers)
         print(len(experience.classes_in_this_experience))
         cl_strategy.train(experience)
         print('Training completed')
-        optimizer.param_groups[0]['lr'] = optimizer.param_groups[0]['lr'] + 0.1*optimizer.param_groups[0]['lr']
-        print('Learning rate adjusted to ', optimizer.param_groups[0]['lr'])
-        cl_strategy.eval(experience)
-        results.append(cl_strategy.evaluator.all_metric_results)
-        if model.classifier.out_features != 22:
-            model.adaptation(experience)
+        print("Shape of the FC layer: ")
         print(model.classifier)
+
+        # Get classification layer weights after training
+        if scr==False:
+            classification_weights = model.fc3.weight.detach().numpy()
+        else:
+            classification_weights = model.feature_extractor.fc3.weight.detach().numpy()
+        
+        # Create a DataFrame for seaborn violin plot
+        weight_df = pd.DataFrame(classification_weights.T, columns=classes)
+        
+        # Set up seaborn style
+        sns.set(style="whitegrid")
+        
+        # Create a violin plot
+        plt.figure(figsize=(8, 6))
+        sns.violinplot(data=weight_df, palette="viridis", inner="quartile")
+
+        plt.xlabel("Class")
+        plt.ylabel("Weight Value")
+        plt.title("Violin Plot of Classification Layer Weight changes")
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        plt.show()
+                
+        print("Computing accuracy on the whole test set")
+        results.append(cl_strategy.eval(bm.test_stream))
+
+
     return results
 
-def cl_simple_train_loop(bm, cl_strategy, model, optimizer, number_of_workers):
+@timeit
+def cl_simple_train_loop(bm, cl_strategy, model, optimizer, number_of_workers, classes, scr=False):
     results = []
     print('Starting experiment with strategy:', cl_strategy)
+    
     for experience in bm.train_stream:
         print("Start of experience: ", experience.current_experience)
         print("Current Classes: ", experience.classes_in_this_experience)
-        res = cl_strategy.train(experience, eval_streams=[bm.test_stream])
+
+        # train one experience
+        res = cl_strategy.train(experience)
         print("Training completed")
+
+        # Get classification layer weights after training
+        if scr==False:
+            classification_weights = model.fc3.weight.detach().numpy()
+        else:
+            classification_weights = model.feature_extractor.fc3.weight.detach().numpy()
+        
+        # Create a DataFrame for seaborn violin plot
+        weight_df = pd.DataFrame(classification_weights.T, columns=classes)
+        
+        # Set up seaborn style
+        sns.set(style="whitegrid")
+        
+        # Create a violin plot
+        plt.figure(figsize=(8, 6))
+        sns.violinplot(data=weight_df, palette="viridis", inner="quartile")
+
+        plt.xlabel("Class")
+        plt.ylabel("Weight Value")
+        plt.title("Violin Plot of Classification Layer Weight changes")
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        plt.show()
+        
+        
         print("Computing accuracy on the whole test set")
         results.append(cl_strategy.eval(bm.test_stream))
     all_metrics = cl_strategy.evaluator.get_all_metrics()
     print(f"Stored metrics: {list(all_metrics.keys())}")
     return results
 
-def plot_tSNE_data_embedding(model, dataloader, name):
+@timeit
+def plot_tSNE_data_embedding(model, dataloader, classes, name):
     # Set the model to evaluation mode
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = model.to(device)
@@ -217,12 +271,24 @@ def plot_tSNE_data_embedding(model, dataloader, name):
     
     # Create a scatter plot of the t-SNE visualization
     plt.figure(figsize=(10, 8))
-    plt.scatter(embeddings_tsne[:, 0], embeddings_tsne[:, 1], c=labels, cmap='viridis')
-    plt.colorbar(label='Class')
+
+    # Define distinct colors for each class
+    class_colors = ['red', 'blue', 'green', 'orange', 'purple', 'cyan', 'magenta', 'yellow', 'brown', 'gray']
+
+    # Scatter plot with different colors for each class
+    for class_label in np.unique(labels):
+        plt.scatter(embeddings_tsne[labels == class_label, 0],
+                    embeddings_tsne[labels == class_label, 1],
+                    label=classes[int(class_label)],
+                    c=class_colors[int(class_label)],  # Assign distinct color
+                    edgecolor='k')
+
     plt.title('t-SNE Visualization of Data Embeddings')
-    figTemp = plt.gcf()
     plt.xlabel('t-SNE Dimension 1')
     plt.ylabel('t-SNE Dimension 2')
+    plt.legend()  # Show legend with all class labels
+
+    figTemp = plt.gcf()
     plt.show()
     plt.draw()
     figTemp.savefig(name)
