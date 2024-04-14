@@ -70,3 +70,60 @@ class BaselineColorNet_resnet18(nn.Module):
         x = self.fc3(x)
         # Return the model's output
         return x
+    
+class MultiViewColorNet_resnet18(nn.Module):
+  def __init__(self, num_classes=10):
+    super(MultiViewColorNet_resnet18, self).__init__()
+
+    # Replace single input with a module for handling 4 images
+    self.input_fusion = nn.ModuleList([models.resnet18(weights='DEFAULT') for _ in range(4)])
+
+    # Freeze pre-trained weights (optional)
+    for module in self.input_fusion:
+      for param in module.parameters():
+        param.requires_grad = False  # Freeze pre-trained weights
+
+    # Define a fusion method (choose one based on your needs)
+    # Option 1: Concatenation (comment out others)
+    self.fusion_type = "concat"
+    self.num_features_in = sum(m.fc.in_features for m in self.input_fusion)
+
+    # Option 2: Averaging (comment out others)
+    # self.fusion_type = "average"
+    # self.num_features_in = self.input_fusion[0].fc.in_features
+
+    # Option 3: Learned Fusion (requires additional layers, not shown here)
+    # self.fusion_type = "learned"
+    # # Implement layers for learned fusion
+
+    # Replace the last layer with new linear layers
+    self.fc1 = nn.Linear(self.num_features_in, 120)
+    self.fc2 = nn.Linear(120, 84)
+    self.fc3 = nn.Linear(84, num_classes)
+    self.dropout = nn.Dropout(p=0.3)
+    self.bn = nn.BatchNorm1d(self.num_features_in)
+
+  def forward(self, x):
+    # Forward pass for each image branch
+    features = []
+    for i in range(4):
+      x_i = self.input_fusion[i](x[:, i, :, :])  # Access each image from the batch dimension
+      features.append(x_i)
+
+    # Apply chosen fusion method
+    if self.fusion_type == "concat":
+      fused_features = torch.cat(features, dim=1)
+    elif self.fusion_type == "average":
+      fused_features = torch.mean(torch.stack(features), dim=0)
+    else:
+      # Implement logic for learned fusion here
+
+    # Rest of the forward pass remains similar
+    x = self.bn(fused_features)
+    x = F.relu(self.fc1(x))
+    x = self.dropout(x)
+    x = self.fc2(x)
+    x = self.dropout(x)
+    x = self.fc3(x)
+    return x
+
