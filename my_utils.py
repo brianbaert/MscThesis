@@ -207,16 +207,16 @@ def cl_simple_train_loop(bm, cl_strategy, model, optimizer, number_of_workers, c
     results = []
     # Get initial classification layer weights after training
     if torch.cuda.is_available():
-            # Get initial classification layer weights after training
-            if scr==False:
-                init_weights = np.copy(model.fc3.weight.cpu().detach().numpy())
-            else:
-                init_weights = np.copy(model.feature_extractor.fc3.weight.cpu().detach().numpy())
+        # Get initial classification layer weights after training
+        if scr==False:
+            init_weights = np.copy(model.fc3.weight.cpu().detach().numpy())
         else:
-            if scr==False:
-                init_weights = np.copy(model.fc3.weight.detach().numpy())
-            else:
-                init_weights = np.copy(model.feature_extractor.fc3.weight.detach().numpy())
+            init_weights = np.copy(model.feature_extractor.fc3.weight.cpu().detach().numpy())
+    else:
+        if scr==False:
+            init_weights = np.copy(model.fc3.weight.detach().numpy())
+        else:
+            init_weights = np.copy(model.feature_extractor.fc3.weight.detach().numpy())
     print('Starting experiment with strategy:', cl_strategy)
     
     for experience in bm.train_stream:
