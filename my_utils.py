@@ -206,10 +206,17 @@ def cl_adaptive_train_loop(bm, cl_strategy, model, optimizer, number_of_workers,
 def cl_simple_train_loop(bm, cl_strategy, model, optimizer, number_of_workers, classes, name, scr=False):
     results = []
     # Get initial classification layer weights after training
-    if scr==False:
-        init_weights = np.copy(model.fc3.weight.detach().numpy())
-    else:
-        init_weights = np.copy(model.feature_extractor.fc3.weight.detach().numpy())
+    if torch.cuda.is_available():
+            # Get initial classification layer weights after training
+            if scr==False:
+                init_weights = np.copy(model.fc3.weight.cpu().detach().numpy())
+            else:
+                init_weights = np.copy(model.feature_extractor.fc3.weight.cpu().detach().numpy())
+        else:
+            if scr==False:
+                init_weights = np.copy(model.fc3.weight.detach().numpy())
+            else:
+                init_weights = np.copy(model.feature_extractor.fc3.weight.detach().numpy())
     print('Starting experiment with strategy:', cl_strategy)
     
     for experience in bm.train_stream:
@@ -220,11 +227,18 @@ def cl_simple_train_loop(bm, cl_strategy, model, optimizer, number_of_workers, c
         res = cl_strategy.train(experience)
         print("Training completed")
 
-        # Get classification layer weights after training
-        if scr==False:
-            classification_weights = np.copy(model.fc3.weight.detach().numpy())
+        if torch.cuda.is_available():
+            # Get initial classification layer weights after training
+            if scr==False:
+                classification_weights = np.copy(model.fc3.weight.cpu().detach().numpy())
+            else:
+                classification_weights = np.copy(model.feature_extractor.fc3.weight.cpu().detach().numpy())
         else:
-            classification_weights = np.copy(model.feature_extractor.fc3.weight.detach().numpy())
+            # Get classification layer weights after training
+            if scr==False:
+                classification_weights = np.copy(model.fc3.weight.detach().numpy())
+            else:
+                classification_weights = np.copy(model.feature_extractor.fc3.weight.detach().numpy())
 
         temp = init_weights - classification_weights        
         # Create a DataFrame for seaborn violin plot
@@ -256,10 +270,17 @@ def cl_simple_train_loop(bm, cl_strategy, model, optimizer, number_of_workers, c
         """print("Computing accuracy on the whole test set")
         results.append(cl_strategy.eval(bm.test_stream))"""
         # Get initial classification layer weights after training
-        if scr==False:
-            init_weights = np.copy(model.fc3.weight.detach().numpy())
+        if torch.cuda.is_available():
+            # Get initial classification layer weights after training
+            if scr==False:
+                init_weights = np.copy(model.fc3.weight.cpu().detach().numpy())
+            else:
+                init_weights = np.copy(model.feature_extractor.fc3.weight.cpu().detach().numpy())
         else:
-            init_weights = np.copy(model.feature_extractor.fc3.weight.detach().numpy())
+            if scr==False:
+                init_weights = np.copy(model.fc3.weight.detach().numpy())
+            else:
+                init_weights = np.copy(model.feature_extractor.fc3.weight.detach().numpy())
     all_metrics = cl_strategy.evaluator.get_all_metrics()
     print(f"Stored metrics: {list(all_metrics.keys())}")
     return results
