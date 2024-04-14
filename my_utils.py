@@ -299,8 +299,12 @@ def plot_tSNE_data_embedding(model, dataloader, classes, name):
     for inputs, targets in dataloader:
         inputs, targets = inputs.to(device), targets.to(device)
         outputs = model(inputs)
-        embeddings.append(outputs.detach().numpy())
-        labels.append(targets.detach().numpy())
+        if torch.cuda.is_available():
+            embeddings.append(outputs.cpu().detach().numpy())
+            labels.append(targets.cpu().detach().numpy())
+        else:
+            embeddings.append(outputs.detach().numpy())
+            labels.append(targets.detach().numpy())
 
 
     # Concatenate embeddings and labels
