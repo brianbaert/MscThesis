@@ -62,8 +62,6 @@ def get_predictions(model, dataloader):
             # Append the predictions and labels to the respective lists
             all_preds.append(preds)
             all_labels.append(labels)
-            #all_preds.extend(preds.cpu().numpy())
-            #all_labels.extend(labels.cpu().numpy())
     # Return the lists of predictions and labels
     all_preds = torch.cat(all_preds).cpu().numpy()
     all_labels = torch.cat(all_labels).cpu().numpy()
@@ -85,6 +83,7 @@ def n_test_predictions(model, data_loader, classes, n):
     model = model.to(device)
     model.eval()
     for i, sample in data_loader:
+        i, sample = i.to(device), sample.to(device)
         if temp!=n:
             x = i
             y = sample[0]
@@ -298,6 +297,7 @@ def plot_tSNE_data_embedding(model, dataloader, classes, name):
 
     # Iterate over the data and collect embeddings
     for inputs, targets in dataloader:
+        inputs, targets = inputs.to(device), targets.to(device)
         outputs = model(inputs)
         embeddings.append(outputs.detach().numpy())
         labels.append(targets.detach().numpy())
