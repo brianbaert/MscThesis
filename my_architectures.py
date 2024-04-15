@@ -92,10 +92,6 @@ class MultiViewColorNet_resnet18(nn.Module):
     # self.fusion_type = "average"
     # self.num_features_in = self.input_fusion[0].fc.in_features
 
-    # Option 3: Learned Fusion (requires additional layers, not shown here)
-    # self.fusion_type = "learned"
-    # # Implement layers for learned fusion
-
     # Replace the last layer with new linear layers
     self.fc1 = nn.Linear(self.num_features_in, 120)
     self.fc2 = nn.Linear(120, 84)
@@ -115,8 +111,6 @@ class MultiViewColorNet_resnet18(nn.Module):
       fused_features = torch.cat(features, dim=1)
     elif self.fusion_type == "average":
       fused_features = torch.mean(torch.stack(features), dim=0)
-    else:
-      # Implement logic for learned fusion here
 
     # Rest of the forward pass remains similar
     x = self.bn(fused_features)

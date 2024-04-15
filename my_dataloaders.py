@@ -1,8 +1,13 @@
 import os
 import torch
+from pathlib import Path
+import PIL
 from PIL import Image
 from collections import Counter
 from torchvision.datasets import DatasetFolder, ImageFolder
+import numpy as np
+from torchvision import transforms
+import my_transformations
 
 class GravitySpy_dataset(ImageFolder):
   def __init__(self, root, cls, transform=None):
@@ -173,41 +178,48 @@ class GravitySpy_4_0_dataset(ImageFolder):
     label_counts = Counter(self.labels)
     return label_counts
 
+
 class MultiViewGravitySpyDataset(ImageFolder):
-  def __init__(self, root, classes, transform=None):
-    super(MultiViewGravitySpyDataset, self).__init__(root, transform=transform)
-    self.classes = classes
+  def __init__(self, root, cls, transform=None):
+    self.data_dir = root
+    self.classes = cls
+    self.class_to_indx = {c: i for i, c in enumerate(self.classes)}
     self.image_paths = []
     self.labels = []
-
-    # Define expected image versions (modify as needed)
-    self.versions = ["1.0.png", "2.0.png", "0.5.png", "4.0.png"]
+    self.versions = ["0.5.png", "1.0.png", "2.0.png", "4.0.png"]
 
     for class_name in self.classes:
       class_path = os.path.join(root, class_name)
-      # Check for all expected versions in the class directory
-      if all(os.path.isfile(os.path.join(class_path, version)) for version in self.versions):
-        # Load image paths and labels for all versions
-        for version in self.versions:
-          image_path = os.path.join(class_path, version)
-          self.image_paths.append(image_path)
+      for filename in os.listdir(class_path):
+        if any(filename.endswith(version) for version in self.versions):
+          self.image_paths.append(os.path.join(class_path, filename))
           self.labels.append(self.class_to_indx[class_name])
-      else:
-        print(f"Warning: Skipping class '{class_name}': Not all versions found.")
+
+    self.transform = transform
 
   def __len__(self):
-    return len(self.image_paths)
+    return len(self.image_paths) // 4  # Assuming 4 versions for each image
 
   def __getitem__(self, idx):
-    # Load all four images for the current index
-    images = []
-    for _ in range(len(self.versions)):  # Load all versions based on self.versions length
-      image_path = self.image_paths[idx * len(self.versions) + _]  # Offset for each version
-      image = Image.open(image_path)
-      image = image.convert('RGB')
-      if self.transform:
-        image = self.transform(image)
-      images.append(image)
+    image_paths = self.image_paths[idx*4: (idx+1)*4]  # Get paths for the 4 versions
+    images = [Image.open(image_path).convert('RGB') for image_path in image_paths]
+    # Apply transformations if provided
+    if self.transform:
+      images = [self.transform(img) for img in images]
 
-    label = self.labels[idx]
-    return torch.stack(images), label  # Stack images as channels
+    # Concatenate images
+    top_row = Image.fromarray(np.concatenate([np.array(images[0]), np.array(images[1])], axis=1))
+    bottom_row = Image.fromarray(np.concatenate([np.array(images[2]), np.array(images[3])], axis=1))
+    final_image = Image.fromarray(np.concatenate([np.array(top_row), np.array(bottom_row)], axis=0))
+    temp = np.array(final_image)
+
+    temp = temp.astype(np.float32)
+    temp /= 255.0
+    fused_image = torch.from_numpy(temp.transpose((2, 0, 1)))
+
+    # Convert back to PIL Image if needed for further processing
+    # fused_image = Image.fromarray(fused_image)  # Uncomment if required
+    label = self.labels[idx]  # Assuming labels are the same for all versions
+    return fused_image, label
+
+
