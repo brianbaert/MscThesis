@@ -73,51 +73,48 @@ class BaselineColorNet_resnet18(nn.Module):
     
 class MultiViewColorNet_resnet18(nn.Module):
   def __init__(self, num_classes=10):
+    # Call the parent class's constructor
     super(MultiViewColorNet_resnet18, self).__init__()
 
-    # Replace single input with a module for handling 4 images
-    self.input_fusion = nn.ModuleList([models.resnet18(weights='DEFAULT') for _ in range(4)])
+    # Initialize a pretrained ResNet-18 model with adjusted input size
+    self.resnet = models.resnet18(weights='DEFAULT')
 
-    # Freeze pre-trained weights (optional)
-    for module in self.input_fusion:
-      for param in module.parameters():
-        param.requires_grad = False  # Freeze pre-trained weights
+    # Access the first convolutional layer (assuming it's named conv1)
+    first_conv = self.resnet.conv1
 
-    # Define a fusion method (choose one based on your needs)
-    # Option 1: Concatenation (comment out others)
-    self.fusion_type = "concat"
-    self.num_features_in = sum(m.fc.in_features for m in self.input_fusion)
+    # Modify the kernel size of the first convolution
+    first_conv.kernel_size = (7, 7)
 
-    # Option 2: Averaging (comment out others)
-    # self.fusion_type = "average"
-    # self.num_features_in = self.input_fusion[0].fc.in_features
+    # Unfreeze all parameters in the model for training
+    for param in self.resnet.parameters():
+      param.requires_grad = True
 
-    # Replace the last layer with new linear layers
-    self.fc1 = nn.Linear(self.num_features_in, 120)
+    # Get the number of features in the last layer of the model
+    num_features_in = self.resnet.fc.in_features
+
+    # Replace the last layer with a new linear layer
+    self.resnet.fc = nn.Linear(num_features_in, 120)
+    # Add a second fully connected layer
     self.fc2 = nn.Linear(120, 84)
+    # Add a third fully connected layer for the num_classes classes in the GravitySpy dataset
     self.fc3 = nn.Linear(84, num_classes)
+    # Add a dropout layer to prevent overfitting
     self.dropout = nn.Dropout(p=0.3)
-    self.bn = nn.BatchNorm1d(self.num_features_in)
+    # Add a batch normalization layer
+    self.bn = nn.BatchNorm1d(120)
 
   def forward(self, x):
-    # Forward pass for each image branch
-    features = []
-    for i in range(4):
-      x_i = self.input_fusion[i](x[:, i, :, :])  # Access each image from the batch dimension
-      features.append(x_i)
-
-    # Apply chosen fusion method
-    if self.fusion_type == "concat":
-      fused_features = torch.cat(features, dim=1)
-    elif self.fusion_type == "average":
-      fused_features = torch.mean(torch.stack(features), dim=0)
-
-    # Rest of the forward pass remains similar
-    x = self.bn(fused_features)
-    x = F.relu(self.fc1(x))
+    # Forward pass: compute the output of the model by passing the input through the model
+    x = self.resnet(x)
+    # Apply batch normalization
+    x = self.bn(x)
+    # Apply the ReLU activation function
+    x = F.relu(self.fc2(x))
+    # Apply dropout
     x = self.dropout(x)
-    x = self.fc2(x)
-    x = self.dropout(x)
+    # Pass the result through the final fully connected layer
     x = self.fc3(x)
+    # Return the model's output
     return x
+
 

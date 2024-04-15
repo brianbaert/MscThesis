@@ -219,7 +219,7 @@ class MultiViewGravitySpyDataset(ImageFolder):
 
     # Convert back to PIL Image if needed for further processing
     # fused_image = Image.fromarray(fused_image)  # Uncomment if required
-    label = self.labels[idx]  # Assuming labels are the same for all versions
+    label = self.labels[idx*4]  # Assuming labels are the same for all versions
     return fused_image, label
 
 

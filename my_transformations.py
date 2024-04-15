@@ -66,3 +66,12 @@ transformAV_Fuse = transforms.Compose([
     transforms.Resize((112,112))
 ])
 
+transformAV_Fuse_448_Crop = transforms.Compose([
+    my_utils.CustomCrop(top, left, height, width),
+    transforms.Resize((224,224))
+])
+
+transformAV_448_Fuse = transforms.Compose([
+    transforms.Resize((224,224))
+])
+
