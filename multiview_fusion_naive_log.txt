@@ -493,3 +493,93 @@ Epoch 4 ended.
 	Loss_Epoch/train_phase/train_stream/Task000 = 0.2622
 	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9375
 -- >> End of training phase << --
+-- >> Start of training phase << --
+-- Starting training on experience 0 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 1.5639
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.7025
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.4683
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9975
+Epoch 2 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.1298
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9975
+Epoch 3 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0283
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+Epoch 4 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0129
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+-- >> End of training phase << --
+-- >> Start of training phase << --
+-- Starting training on experience 1 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 2.1557
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.5000
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.9261
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.7200
+Epoch 2 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.3834
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9537
+Epoch 3 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.2311
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9625
+Epoch 4 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.1666
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9688
+-- >> End of training phase << --
+-- >> Start of training phase << --
+-- Starting training on experience 2 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 2.0286
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.4540
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 1.2270
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.4976
+Epoch 2 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.8908
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.7818
+Epoch 3 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.6035
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.8974
+Epoch 4 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.3742
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9210
+-- >> End of training phase << --
+-- >> Start of training phase << --
+-- Starting training on experience 3 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 2.4448
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.3774
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 1.5832
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.4717
+Epoch 2 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 1.1083
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.6238
+Epoch 3 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.6939
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.8219
+Epoch 4 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.4532
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9139
+-- >> End of training phase << --
+-- >> Start of training phase << --
+-- Starting training on experience 4 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 2.5594
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.4281
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 1.6531
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.4658
+Epoch 2 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 1.3603
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.4988
+Epoch 3 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.9004
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.8042
+Epoch 4 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.5564
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.8703
+-- >> End of training phase << --
