@@ -114,12 +114,12 @@ def fit_est(data, sampling_rate):
     
     y = np.log(data)
     x = np.log(np.arange(1,len(data)+1)/sampling_rate)    
-    fit_param,fit_cov = op.curve_fit(linear_func, x, y)
+    fit_param, fit_cov = op.curve_fit(linear_func, x, y)
     return (x, y, fit_param[0], fit_param[1])
 
 
 @timeit
-def calculate_fd_files(start, stop, server, sampling_rate, channel, step, decimate, alpha):
+def calculate_fd_files(start, stop, server, sampling_rate, channel, step, decimate, alpha, verbose=False):
     data_end = sampling_rate * (stop - start)
     data = pd.DataFrame(columns=['time', 'value'])
     data_length = int((stop - start) / step)
@@ -140,10 +140,12 @@ def calculate_fd_files(start, stop, server, sampling_rate, channel, step, decima
         if np.isnan(check_valid.all()):
             print(f"Warning, undefined data, FD is set to zero at time {start_chunktime}.")
             continue
-        print(f"Computing the var estimator for data starting at {start_chunktime} time.")
+        if verbose:
+            print(f"Computing the var estimator for data starting at {start_chunktime} time.")
         est_eval = var_function(data.iloc[chunk], decimate)
         est_fit = fit_est(est_eval, sampling_rate)
         fractal_dimension = 2.-est_fit[3]
-        print(f"fd= {fractal_dimension}")
+        if verbose:
+            print(f"fd= {fractal_dimension}")
         data_fd = pd.concat([data_fd, pd.DataFrame([[start_chunktime, fractal_dimension]], columns=['time', 'fd'])], ignore_index=True) 
     return data_fd
