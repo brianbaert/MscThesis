@@ -31,10 +31,9 @@ def timeit(method):
 def fetch_and_whiten_data(start, end, server, sampling_rate, channel):
     try:
         print("Getting the TimeSeries data")
-        data = pd.DataFrame(columns=['time', 'value'])
-        data_end = sampling_rate * (end-start)
-        data_download = TimeSeries.fetch(channel, start-1, end+1,server)
-        data_conditioned = data_download.whiten(4,2)
+        data_download = pd.DataFrame(columns=['time', 'value'])
+        data_download = TimeSeries.fetch(channel, start, end, server)
+        data_conditioned = data_download.whiten() #was originally (4,2)
         data_conditioned = data_conditioned[sampling_rate:-sampling_rate].value
         return data_conditioned
     except ValueError:
@@ -103,11 +102,18 @@ def var_function(data, decimate):
 # Definition of a linear function for fit
 def linear_func(x, a, b):
     return a+b*x
-
+    
 # Computes the linear fit of the estimator
 @timeit
 def fit_est(data, sampling_rate):
-	y = np.log(data)
-	x = np.log(np.arange(1,len(data)+1)/sampling_rate)
-	fit_param,fit_cov = op.curve_fit(linear_func, x,y)
-	return (x,y,fit_param[0],fit_param[1])	
+    # Ensure data does not contain zero or negative values
+    data = np.array(data, dtype=float)
+    
+    avg_x = np.average(data)
+    data[np.isnan(data)] = avg_x
+    
+    y = np.log(data)
+    x = np.log(np.arange(1,len(data)+1)/sampling_rate)    
+    fit_param,fit_cov = op.curve_fit(linear_func, x, y)
+    return (x, y, fit_param[0], fit_param[1])
+
