@@ -76,6 +76,14 @@ def get_classes_from_dir(goal_dir):
 def get_timestamp():
     return datetime.now().strftime('%Y%m%d_%H%M%S')
 
+def extract_glitchName_from_filenames(filenames, output_filename):
+  with open(output_filename, 'w') as output_file:
+    for filename in filenames:
+      parts = filename.split('_')
+      if len(parts) >= 4 and parts[1] == 'calculation':
+        gN = parts[2]
+        output_file.write(gN + '\n')
+
 @timeit    
 def n_test_predictions(model, data_loader, classes, n):
     temp = 0
