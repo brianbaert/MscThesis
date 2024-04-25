@@ -36,7 +36,7 @@ def fetch_and_whiten_data(start, end, server, sampling_rate, channel):
         data_conditioned = data_download.whiten() #was originally (4,2)
         data_conditioned = data_conditioned[sampling_rate:-sampling_rate].value
         return data_conditioned
-    except ValueError:
+    except:
         data_conditioned = None
         print('Data is not available')
 
@@ -92,7 +92,6 @@ def jitted_var_function(data,n,decimate):
     return var
 
 # Computes the VAR Estimator
-@timeit
 def var_function(data, decimate):
     n = len(data['time'])
     data_value = data['value']
@@ -104,7 +103,6 @@ def linear_func(x, a, b):
     return a+b*x
     
 # Computes the linear fit of the estimator
-@timeit
 def fit_est(data, sampling_rate):
     # Ensure data does not contain zero or negative values
     data = np.array(data, dtype=float)
@@ -118,7 +116,6 @@ def fit_est(data, sampling_rate):
     return (x, y, fit_param[0], fit_param[1])
 
 
-@timeit
 def calculate_fd_files(start, stop, server, sampling_rate, channel, step, decimate, alpha, verbose=False):
     data_end = sampling_rate * (stop - start)
     data = pd.DataFrame(columns=['time', 'value'])
@@ -132,20 +129,24 @@ def calculate_fd_files(start, stop, server, sampling_rate, channel, step, decima
         except:
             print('No data or exception')
             pass
-    data_fd = pd.DataFrame(columns=['time', 'fd'])
-
-    for chunk in range(0, data_length):
-        start_chunktime = chunk * step + start
-        check_valid = data.iloc[chunk].value
-        if np.isnan(check_valid.all()):
-            print(f"Warning, undefined data, FD is set to zero at time {start_chunktime}.")
-            continue
-        if verbose:
-            print(f"Computing the var estimator for data starting at {start_chunktime} time.")
-        est_eval = var_function(data.iloc[chunk], decimate)
-        est_fit = fit_est(est_eval, sampling_rate)
-        fractal_dimension = 2.-est_fit[3]
-        if verbose:
-            print(f"fd= {fractal_dimension}")
-        data_fd = pd.concat([data_fd, pd.DataFrame([[start_chunktime, fractal_dimension]], columns=['time', 'fd'])], ignore_index=True) 
+    print(f"The value of data_conditioned is: {data_conditioned}")
+    if data_conditioned is not None:
+        data_fd = pd.DataFrame(columns=['time', 'fd'])
+        print(f"The value of data_length is: {data_length}")
+        for chunk in range(0, data_length):
+            start_chunktime = chunk * step + start
+            check_valid = data.iloc[chunk].value
+            if np.isnan(check_valid.all()):
+                print(f"Warning, undefined data, FD is set to zero at time {start_chunktime}.")
+                continue
+            if verbose:
+                print(f"Computing the var estimator for data starting at {start_chunktime} time.")
+            est_eval = var_function(data.iloc[chunk], decimate)
+            est_fit = fit_est(est_eval, sampling_rate)
+            fractal_dimension = 2.-est_fit[3]
+            if verbose:
+                print(f"fd= {fractal_dimension}")
+            data_fd = pd.concat([data_fd, pd.DataFrame([[start_chunktime, fractal_dimension]], columns=['time', 'fd'])], ignore_index=True)
+    else:
+        data_fd = None
     return data_fd
