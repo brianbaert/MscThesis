@@ -1,4 +1,6 @@
 import torch
+import umap
+import numba
 from torch.utils.data import DataLoader, Dataset
 import torchvision.transforms as transforms
 import torchvision.transforms.functional as F
@@ -141,7 +143,7 @@ def plot_batch_of_images(dataloader, nrow=4, padding=2):
         break
 
 def plot_confusion_matrix(cm, classes, name):
-    plt.figure(figsize=(10,7))
+    plt.figure(figsize=(10,10))
     # Use seaborn heatmap for visualization
     sns.heatmap(cm, annot=True, cmap='viridis', fmt='d', xticklabels=classes, yticklabels=classes)
     plt.xlabel('Predicted')
@@ -165,6 +167,28 @@ def plot_f1_scores(f1, classes, name):
     plt.draw()
     figTemp.savefig(name)
     plt.close()
+
+def plot_f1_scores_with_labels(f1, classes, name):
+  # Create a horizontal bar plot for F1 scores with different colors
+  plt.figure(figsize=(10, 7))
+  colors = plt.cm.viridis(np.linspace(0, 1, len(classes)))
+
+  # Create rectangles for bars
+  bars = plt.barh(np.arange(len(classes)), f1, color=colors, align='center')
+
+  # Add F1 values as text labels on top of bars
+  for bar, value in zip(bars, f1):
+    plt.text(value + 0.05, bar.get_height() / 2, f"{value:.2f}", va='center')
+
+  plt.yticks(np.arange(len(classes)), classes)
+  plt.xlabel('F1 Score')
+  plt.title('F1 Score for Each Class')
+  figTemp = plt.gcf()
+  plt.show()
+  plt.draw()
+  figTemp.savefig(name)
+  plt.close()
+
 
 def cl_adaptive_train_loop(bm, cl_strategy, model, optimizer, number_of_workers, classes, scr=False):
     results = []
@@ -347,6 +371,60 @@ def plot_tSNE_data_embedding(model, dataloader, classes, name):
     plt.draw()
     figTemp.savefig(name)
     plt.close()
+
+@timeit
+def plot_umap_data_embedding(model, dataloader, classes, reducer, name):
+    # Set the model to evaluation mode
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    model = model.to(device)
+    model.eval()
+
+    # Initialize lists to store embeddings and labels
+    embeddings = []
+    labels = []
+
+    # Iterate over the data and collect embeddings
+    for inputs, targets in dataloader:
+        inputs, targets = inputs.to(device), targets.to(device)
+        outputs = model(inputs)
+        if torch.cuda.is_available():
+            embeddings.append(outputs.cpu().detach().numpy())
+            labels.append(targets.cpu().detach().numpy())
+        else:
+            embeddings.append(outputs.detach().numpy())
+            labels.append(targets.detach().numpy())
+
+    # Concatenate embeddings and labels
+    embeddings = np.concatenate(embeddings)
+    labels = np.concatenate(labels)
+    
+    # Apply umap to reduce dimensionality
+    proj = reducer.fit_transform(embeddings)
+
+    # Create a scatter plot of the t-SNE visualization
+    plt.figure(figsize=(10, 8))
+
+    # Define distinct colors for each class
+    class_colors = ['red', 'blue', 'green', 'orange', 'purple', 'cyan', 'magenta', 'yellow', 'brown', 'gray']
+
+    # Scatter plot with different colors for each class
+    for class_label in np.unique(labels):
+        plt.scatter(proj[labels == class_label, 0],
+                    proj[labels == class_label, 1],
+                    label=classes[int(class_label)],
+                    c=class_colors[int(class_label)],  # Assign distinct color
+                    edgecolor='k')
+
+    plt.title('umap Visualization of Data Embeddings')
+    plt.xlabel('umap Dimension 1')
+    plt.ylabel('umap Dimension 2')
+    plt.legend()  # Show legend with all class labels
+    
+    figTemp = plt.gcf()
+    plt.show()
+    plt.draw()
+    figTemp.savefig(name)
+    plt.close()    
 
 class CustomCrop(object):
     def __init__(self, top, left, height, width):
