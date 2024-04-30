@@ -168,27 +168,6 @@ def plot_f1_scores(f1, classes, name):
     figTemp.savefig(name)
     plt.close()
 
-def plot_f1_scores_with_labels(f1, classes, name):
-  # Create a horizontal bar plot for F1 scores with different colors
-  plt.figure(figsize=(10, 7))
-  colors = plt.cm.viridis(np.linspace(0, 1, len(classes)))
-
-  # Create rectangles for bars
-  bars = plt.barh(np.arange(len(classes)), f1, color=colors, align='center')
-
-  # Add F1 values as text labels on top of bars
-  for bar, value in zip(bars, f1):
-    plt.text(value + 0.05, bar.get_height() / 2, f"{value:.2f}", va='center')
-
-  plt.yticks(np.arange(len(classes)), classes)
-  plt.xlabel('F1 Score')
-  plt.title('F1 Score for Each Class')
-  figTemp = plt.gcf()
-  plt.show()
-  plt.draw()
-  figTemp.savefig(name)
-  plt.close()
-
 
 def cl_adaptive_train_loop(bm, cl_strategy, model, optimizer, number_of_workers, classes, scr=False):
     results = []
