@@ -8806,3 +8806,701 @@ Epoch 5 ended.
 	Loss_Epoch/train_phase/train_stream/Task000 = 3.7832
 	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.8325
 Epoch 6 ended.
+-- >> Start of training phase << --
+-- >> Start of eval phase << --
+-- Starting eval on experience 0 (Task 0) from train stream --
+> Eval on experience 0 (Task 0) from train stream ended.
+	Loss_Exp/eval_phase/train_stream/Task000/Exp000 = 1.7918
+	MaxGPU0Usage_Experience/eval_phase/train_stream/Task000/Exp000 = 86.0000
+	MaxRAMUsage_Experience/eval_phase/train_stream/Task000/Exp000 = 1039.7031
+	Time_Exp/eval_phase/train_stream/Task000/Exp000 = 22.6946
+	Top1_Acc_Exp/eval_phase/train_stream/Task000/Exp000 = 0.0000
+-- >> End of eval phase << --
+	Loss_Stream/eval_phase/train_stream/Task000 = 1.7918
+	MaxRAMUsage_Stream/eval_phase/train_stream/Task000 = 1039.7031
+	StreamBWT/eval_phase/train_stream = 0.0000
+	StreamForgetting/eval_phase/train_stream = 0.0000
+	Time_Stream/eval_phase/train_stream/Task000 = 22.7030
+	Top1_Acc_Stream/eval_phase/train_stream/Task000 = 0.0000
+-- Starting training on experience 0 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 20.9626
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+-- >> Start of eval phase << --
+-- Starting eval on experience 0 (Task 0) from train stream --
+> Eval on experience 0 (Task 0) from train stream ended.
+	Loss_Exp/eval_phase/train_stream/Task000/Exp000 = 1.7918
+	MaxGPU0Usage_Experience/eval_phase/train_stream/Task000/Exp000 = 68.0000
+	MaxRAMUsage_Experience/eval_phase/train_stream/Task000/Exp000 = 1364.4844
+	Time_Exp/eval_phase/train_stream/Task000/Exp000 = 21.7647
+	Top1_Acc_Exp/eval_phase/train_stream/Task000/Exp000 = 0.0000
+-- >> End of eval phase << --
+	Loss_Stream/eval_phase/train_stream/Task000 = 1.7918
+	MaxRAMUsage_Stream/eval_phase/train_stream/Task000 = 1364.4844
+	StreamBWT/eval_phase/train_stream = 0.0000
+	StreamForgetting/eval_phase/train_stream = 0.0000
+	Time_Stream/eval_phase/train_stream/Task000 = 21.7742
+	Top1_Acc_Stream/eval_phase/train_stream/Task000 = 0.0000
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.7696
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+-- >> Start of eval phase << --
+-- Starting eval on experience 0 (Task 0) from train stream --
+> Eval on experience 0 (Task 0) from train stream ended.
+	Loss_Exp/eval_phase/train_stream/Task000/Exp000 = 1.7918
+	MaxGPU0Usage_Experience/eval_phase/train_stream/Task000/Exp000 = 69.0000
+	MaxRAMUsage_Experience/eval_phase/train_stream/Task000/Exp000 = 1365.1797
+	Time_Exp/eval_phase/train_stream/Task000/Exp000 = 22.1543
+	Top1_Acc_Exp/eval_phase/train_stream/Task000/Exp000 = 0.0000
+-- >> End of eval phase << --
+	Loss_Stream/eval_phase/train_stream/Task000 = 1.7918
+	MaxRAMUsage_Stream/eval_phase/train_stream/Task000 = 1365.1172
+	StreamBWT/eval_phase/train_stream = 0.0000
+	StreamForgetting/eval_phase/train_stream = 0.0000
+	Time_Stream/eval_phase/train_stream/Task000 = 22.1617
+	Top1_Acc_Stream/eval_phase/train_stream/Task000 = 0.0000
+Epoch 2 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.1349
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+-- >> Start of eval phase << --
+-- Starting eval on experience 0 (Task 0) from train stream --
+> Eval on experience 0 (Task 0) from train stream ended.
+	Loss_Exp/eval_phase/train_stream/Task000/Exp000 = 1.7918
+	MaxGPU0Usage_Experience/eval_phase/train_stream/Task000/Exp000 = 70.0000
+	MaxRAMUsage_Experience/eval_phase/train_stream/Task000/Exp000 = 1371.5000
+	Time_Exp/eval_phase/train_stream/Task000/Exp000 = 21.6573
+	Top1_Acc_Exp/eval_phase/train_stream/Task000/Exp000 = 0.0000
+-- >> End of eval phase << --
+	Loss_Stream/eval_phase/train_stream/Task000 = 1.7918
+	MaxRAMUsage_Stream/eval_phase/train_stream/Task000 = 1371.5000
+	StreamBWT/eval_phase/train_stream = 0.0000
+	StreamForgetting/eval_phase/train_stream = 0.0000
+	Time_Stream/eval_phase/train_stream/Task000 = 21.6630
+	Top1_Acc_Stream/eval_phase/train_stream/Task000 = 0.0000
+-- >> Start of training phase << --
+-- Starting training on experience 0 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 25.1053
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 7.1447
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 2 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.2445
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 92.0000
+Epoch 3 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.8789
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 4 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.6121
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 93.0000
+-- >> End of training phase << --
+-- >> Start of training phase << --
+-- Starting training on experience 1 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 8.2384
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 7.3790
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 2 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 7.0660
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 3 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.8757
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 4 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.7913
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+-- >> End of training phase << --
+-- >> Start of training phase << --
+-- Starting training on experience 2 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.7337
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.4972
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 2 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.3932
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 3 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.2825
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 4 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.2370
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+-- >> End of training phase << --
+-- >> Start of training phase << --
+-- Starting training on experience 3 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.3764
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.2484
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 2 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.1078
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 3 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.1134
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 4 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.0232
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+-- >> End of training phase << --
+-- >> Start of training phase << --
+-- Starting training on experience 4 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.1482
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.0122
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 2 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.9187
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 3 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.8762
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 4 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.8254
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+-- >> End of training phase << --
+-- >> Start of training phase << --
+-- Starting training on experience 0 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 30.8494
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 8.7375
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 2 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.7220
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 3 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.1318
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 4 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5625
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 97.0000
+Epoch 5 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.4418
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 75.0000
+Epoch 6 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.3401
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 96.0000
+Epoch 7 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.2577
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 8 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.3521
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 9 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.4148
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 97.0000
+Epoch 10 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.1332
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 11 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.0926
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 97.0000
+Epoch 12 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.1202
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 97.0000
+Epoch 13 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.0742
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 95.0000
+Epoch 14 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.0477
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 97.0000
+Epoch 15 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.0298
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 16 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.0021
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 88.0000
+Epoch 17 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 4.9898
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 18 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 4.9879
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 19 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.0128
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 97.0000
+Epoch 20 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 4.9763
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 21 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.0038
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 97.0000
+Epoch 22 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 4.9747
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 23 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.2221
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 96.0000
+Epoch 24 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.0820
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 93.0000
+Epoch 25 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 4.9530
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 87.0000
+Epoch 26 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.0021
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 97.0000
+Epoch 27 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 4.9904
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 28 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 4.9649
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 97.0000
+Epoch 29 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 4.9490
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 30 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.0328
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 31 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 9.4798
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 94.0000
+Epoch 32 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.6927
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 93.0000
+Epoch 33 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.3782
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 34 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.1695
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 84.0000
+Epoch 35 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.0941
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 36 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.0525
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 37 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.0448
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 38 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.0545
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 97.0000
+Epoch 39 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.0145
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 40 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.0043
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 41 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 4.9940
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 95.0000
+Epoch 42 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.0475
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 84.0000
+Epoch 43 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 4.9656
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 97.0000
+Epoch 44 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 4.9626
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 45 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.0534
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 46 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 4.9888
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 91.0000
+Epoch 47 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 4.9882
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 90.0000
+Epoch 48 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 4.9732
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+Epoch 49 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 4.9615
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 98.0000
+-- >> End of training phase << --
+-- >> Start of training phase << --
+-- Starting training on experience 1 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 7.2026
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.9892
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 2 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.8199
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 3 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.7114
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 4 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.6322
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 5 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.6023
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 6 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.5526
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 7 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.5575
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 8 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.5392
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 9 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.5023
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 10 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.5034
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 11 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.4692
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 12 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.4764
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 13 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.4424
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 14 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.4286
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 15 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.4067
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 16 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.4032
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 17 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.4053
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 18 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.3890
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 19 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.3979
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 20 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.3724
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 21 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.3660
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 22 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.3634
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 23 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.3537
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 24 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.3520
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 25 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.3475
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 26 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.3303
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 27 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.3245
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 28 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.3398
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 29 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.3265
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 30 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.3160
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 31 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.3103
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 32 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.3078
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 33 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.3093
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 34 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.3008
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 35 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.3126
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 36 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.3006
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 37 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.3055
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 38 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.3001
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 39 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.2920
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 40 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.2918
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 41 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.2802
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 42 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.2895
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 43 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.2845
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 44 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.2815
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 45 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.2672
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 46 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.2776
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 47 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.2842
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 48 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.2723
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 49 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.2614
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+-- >> End of training phase << --
+-- >> Start of training phase << --
+-- Starting training on experience 2 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.1473
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 6.0059
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 2 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.9205
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 3 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.8897
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 4 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.8340
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 5 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.8116
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 6 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.7969
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 7 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.7511
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 8 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.7268
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 9 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.6875
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 10 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.7070
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 11 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.6741
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 12 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.6714
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 13 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.6586
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 14 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.6438
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 15 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.6346
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 16 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.6256
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 17 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.6155
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 18 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.6016
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 19 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.6014
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 20 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.6053
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 21 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.6099
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 22 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5838
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 23 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5818
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 24 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5779
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 25 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5872
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 26 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5551
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 27 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5620
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 28 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5700
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 29 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5760
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 30 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5564
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 31 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5647
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 32 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5594
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 33 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5419
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 34 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5478
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 35 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5583
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 36 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5417
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 37 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5488
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 38 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5322
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 39 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5281
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 40 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5325
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 41 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5276
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 42 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5229
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 43 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5329
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 44 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5324
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 45 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5171
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 46 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5115
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 47 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5145
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 48 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5181
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 49 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5174
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+-- >> End of training phase << --
+-- >> Start of training phase << --
+-- Starting training on experience 3 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.6784
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5981
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 2 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5639
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 3 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5340
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 4 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.5142
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 5 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.4880
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 6 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.4545
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 7 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.4420
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 8 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.4118
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 9 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.3900
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 10 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.3469
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 11 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.3676
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 12 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.3238
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 13 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.3045
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 14 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.2824
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 15 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.2839
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 16 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.2421
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 17 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.2391
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 18 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.2412
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 19 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.2241
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 20 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.2256
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 21 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.2105
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 22 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.1907
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 23 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.1879
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 24 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 5.1891
+	MaxGPU0Usage_Epoch/train_phase/train_stream/Task000 = 100.0000
+Epoch 25 ended.
