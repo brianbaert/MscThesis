@@ -4,6 +4,7 @@ from pathlib import Path
 import PIL
 from PIL import Image
 from collections import Counter
+from torch.utils.data import DataLoader, Dataset
 from torchvision.datasets import DatasetFolder, ImageFolder
 import numpy as np
 from torchvision import transforms
@@ -221,5 +222,18 @@ class MultiViewGravitySpyDataset(ImageFolder):
     # fused_image = Image.fromarray(fused_image)  # Uncomment if required
     label = self.labels[idx*4]  # Assuming labels are the same for all versions
     return fused_image, label
+
+class FractalDataset(Dataset):
+    def __init__(self, data, labels):
+        self.data = data
+        self.labels = labels
+
+    def __len__(self):
+        return len(self.labels)
+
+    def __getitem__(self, idx):
+        #data, label = self.data[idx][0:21], self.labels[idx]
+        data, label = self.data[idx], self.labels[idx]
+        return data, label
 
 

@@ -1,4 +1,5 @@
 import torch
+import torch.nn as nn
 import umap
 import numba
 from torch.utils.data import DataLoader, Dataset
@@ -23,6 +24,12 @@ def checkpoint(model, filename):
 def resume(model, filename):
     # Load the state of the model from a file
     model.load_state_dict(torch.load(filename))
+
+def weights_init(m):
+    if isinstance(m, nn.Linear):
+        torch.nn.init.xavier_uniform_(m.weight)
+        if m.bias is not None:
+            torch.nn.init.zeros_(m.bias)
 
 def calculate_accuracy(outputs, labels):
     # Get the index of the maximum value

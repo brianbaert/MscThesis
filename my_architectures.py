@@ -117,4 +117,37 @@ class MultiViewColorNet_resnet18(nn.Module):
     # Return the model's output
     return x
 
+class FractalDimensionConvNet(nn.Module):
+    def __init__(self):
+        super(FractalDimensionConvNet, self).__init__()
+        self.conv1 = nn.Conv1d(in_channels=50, out_channels=128, kernel_size=3, stride=1, padding=1) #adjust from 347 to 50
+        self.bn1 = nn.BatchNorm1d(128)
+        self.conv2 = nn.Conv1d(in_channels=128, out_channels=64, kernel_size=3, stride=1, padding=1)
+        self.bn2 = nn.BatchNorm1d(64)
+        self.conv3 = nn.Conv1d(in_channels=64, out_channels=32, kernel_size=3, stride=1, padding=1)
+        self.bn3 = nn.BatchNorm1d(32)
+        self.conv4 = nn.ConvTranspose1d(in_channels=32, out_channels=64, kernel_size=3, stride=1, padding=1)
+        self.bn4 = nn.BatchNorm1d(64)
+        self.fc1 = nn.Linear(64*56, 1024)
+        #self.fc1 = nn.Linear(64*5, 1024) #adjust input size for fd statistics
+        self.fc2 = nn.Linear(1024,256)
+        self.dropout1 = nn.Dropout(0.1)
+        self.dropout2 = nn.Dropout(0.3)
+        self.fc3 = nn.Linear(256,3)
 
+    def forward(self, x):
+        x = nn.functional.selu(self.conv1(x))
+        x = self.bn1(x)
+        x = nn.functional.selu(self.conv2(x))
+        x = self.bn2(x)
+        x = nn.functional.selu(self.conv3(x))
+        x = self.bn3(x)
+        x = self.dropout1(x)
+        x = nn.functional.selu(self.conv4(x))
+        x = self.bn4(x)
+        x = self.dropout2(x)
+        x = x.view(x.size(0), -1)
+        x = nn.functional.selu(self.fc1(x))
+        x = nn.functional.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
