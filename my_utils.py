@@ -283,9 +283,9 @@ def cl_simple_train_loop(bm, cl_strategy, model, optimizer, number_of_workers, c
 
         # Create a DataFrame for seaborn violin plot
         weight_df = pd.DataFrame(classification_weights.T, columns=classes)
-        
-        """print("Computing accuracy on the whole test set")
-        results.append(cl_strategy.eval(bm.test_stream))"""
+        if experience.current_experience > 0:
+            print("Computing accuracy on the whole test set")
+            results.append(cl_strategy.eval(bm.test_stream))
         # Get initial classification layer weights after training
         if torch.cuda.is_available():
             # Get initial classification layer weights after training
