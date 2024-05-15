@@ -1,0 +1,588 @@
+-- >> Start of training phase << --
+-- Starting training on experience 0 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0344
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9863
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9863
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0000
+	MeanScores/train_phase/train_stream = <avalanche.evaluation.metric_results.AlternativeValues object at 0x000002A783497CA0>
+	MeanScores/train_phase/train_stream/new_classes = 28.8227
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+-- >> End of training phase << --
+-- >> Start of training phase << --
+-- Starting training on experience 1 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.8612
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9406
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9395
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9418
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0519
+	MeanScores/train_phase/train_stream = <avalanche.evaluation.metric_results.AlternativeValues object at 0x000002A8EF3FE890>
+	MeanScores/train_phase/train_stream/new_classes = 44.4418
+	MeanScores/train_phase/train_stream/new_old_diff = 16.8705
+	MeanScores/train_phase/train_stream/old_classes = 27.5712
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9920
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9932
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9909
+-- >> End of training phase << --
+-- >> Start of eval phase << --
+-- Starting eval on experience 0 (Task 0) from test stream --
+> Eval on experience 0 (Task 0) from test stream ended.
+	Loss_Exp/eval_phase/test_stream/Task000/Exp000 = 0.0000
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp000 = 1.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp000/0 = 1.0000
+-- Starting eval on experience 1 (Task 0) from test stream --
+> Eval on experience 1 (Task 0) from test stream ended.
+	Loss_Exp/eval_phase/test_stream/Task000/Exp001 = 2.6532
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp001 = 0.5000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp001/0 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp001/2 = 0.5000
+-- Starting eval on experience 2 (Task 0) from test stream --
+> Eval on experience 2 (Task 0) from test stream ended.
+	Loss_Exp/eval_phase/test_stream/Task000/Exp002 = 42.1697
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp002 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp002/0 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp002/1 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp002/2 = 0.0000
+-- >> End of eval phase << --
+	Loss_Stream/eval_phase/test_stream/Task000 = 14.9410
+	MeanScores/eval_phase/test_stream = <avalanche.evaluation.metric_results.AlternativeValues object at 0x000002A566080100>
+	MeanScores/eval_phase/test_stream/new_classes = 23.7205
+	MeanScores/eval_phase/test_stream/new_old_diff = 23.0906
+	MeanScores/eval_phase/test_stream/old_classes = 0.6299
+	StreamBWT/eval_phase/test_stream = 0.0000
+	StreamForgetting/eval_phase/test_stream = 0.0000
+	Top1_Acc_Stream/eval_phase/test_stream/Task000 = 0.5000
+	Top1_ClassAcc_Stream/eval_phase/test_stream/Task000/0 = 1.0000
+	Top1_ClassAcc_Stream/eval_phase/test_stream/Task000/1 = 0.0000
+	Top1_ClassAcc_Stream/eval_phase/test_stream/Task000/2 = 0.5000
+-- >> Start of training phase << --
+-- Starting training on experience 2 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 1.3568
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.8366
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.7938
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/1 = 0.8253
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.8974
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.2733
+	MeanScores/train_phase/train_stream = <avalanche.evaluation.metric_results.AlternativeValues object at 0x000002A8EF476350>
+	MeanScores/train_phase/train_stream/new_classes = 3.9677
+	MeanScores/train_phase/train_stream/new_old_diff = -1.8009
+	MeanScores/train_phase/train_stream/old_classes = 5.7686
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9117
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9257
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/1 = 0.8916
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9381
+-- >> End of training phase << --
+-- >> Start of eval phase << --
+-- Starting eval on experience 0 (Task 0) from test stream --
+> Eval on experience 0 (Task 0) from test stream ended.
+	Loss_Exp/eval_phase/test_stream/Task000/Exp000 = 0.1792
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp000 = 0.9500
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp000/0 = 0.9500
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp000/1 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp000/2 = 0.0000
+-- Starting eval on experience 1 (Task 0) from test stream --
+> Eval on experience 1 (Task 0) from test stream ended.
+	ExperienceBWT/eval_phase/test_stream/Task000/Exp001 = 0.5000
+	ExperienceForgetting/eval_phase/test_stream/Task000/Exp001 = -0.5000
+	Loss_Exp/eval_phase/test_stream/Task000/Exp001 = 0.0974
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp001 = 1.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp001/0 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp001/1 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp001/2 = 1.0000
+-- Starting eval on experience 2 (Task 0) from test stream --
+> Eval on experience 2 (Task 0) from test stream ended.
+	Loss_Exp/eval_phase/test_stream/Task000/Exp002 = 0.0037
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp002 = 1.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp002/0 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp002/1 = 1.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp002/2 = 0.0000
+-- >> End of eval phase << --
+	Loss_Stream/eval_phase/test_stream/Task000 = 0.0934
+	MeanScores/eval_phase/test_stream = <avalanche.evaluation.metric_results.AlternativeValues object at 0x000002A782666950>
+	MeanScores/eval_phase/test_stream/new_classes = 6.2271
+	MeanScores/eval_phase/test_stream/new_old_diff = -0.1581
+	MeanScores/eval_phase/test_stream/old_classes = 6.3852
+	StreamBWT/eval_phase/test_stream = 0.5000
+	StreamForgetting/eval_phase/test_stream = -0.5000
+	Top1_Acc_Stream/eval_phase/test_stream/Task000 = 0.9833
+	Top1_ClassAcc_Stream/eval_phase/test_stream/Task000/0 = 0.9500
+	Top1_ClassAcc_Stream/eval_phase/test_stream/Task000/1 = 1.0000
+	Top1_ClassAcc_Stream/eval_phase/test_stream/Task000/2 = 1.0000
+-- >> Start of training phase << --
+-- Starting training on experience 0 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0719
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9874
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9874
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0000
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+Epoch 2 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0000
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+Epoch 3 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0000
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+Epoch 4 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0000
+	MeanScores/train_phase/train_stream = <avalanche.evaluation.metric_results.AlternativeValues object at 0x000002A3F1087550>
+	MeanScores/train_phase/train_stream/new_classes = 21.0120
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+-- >> End of training phase << --
+-- >> Start of training phase << --
+-- Starting training on experience 1 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 1.1762
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9521
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9589
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9452
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0415
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9914
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9920
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9909
+Epoch 2 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0193
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9943
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9954
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9932
+Epoch 3 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0046
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9983
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9989
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9977
+Epoch 4 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0053
+	MeanScores/train_phase/train_stream = <avalanche.evaluation.metric_results.AlternativeValues object at 0x000002A8F49534F0>
+	MeanScores/train_phase/train_stream/new_classes = 22.4083
+	MeanScores/train_phase/train_stream/new_old_diff = -130.3143
+	MeanScores/train_phase/train_stream/old_classes = 152.7226
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9983
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9989
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9977
+-- >> End of training phase << --
+-- >> Start of eval phase << --
+-- Starting eval on experience 0 (Task 0) from test stream --
+> Eval on experience 0 (Task 0) from test stream ended.
+	Loss_Exp/eval_phase/test_stream/Task000/Exp000 = 0.0000
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp000 = 1.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp000/0 = 1.0000
+-- Starting eval on experience 1 (Task 0) from test stream --
+> Eval on experience 1 (Task 0) from test stream ended.
+	Loss_Exp/eval_phase/test_stream/Task000/Exp001 = 0.0485
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp001 = 0.9500
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp001/0 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp001/2 = 0.9500
+-- Starting eval on experience 2 (Task 0) from test stream --
+> Eval on experience 2 (Task 0) from test stream ended.
+	Loss_Exp/eval_phase/test_stream/Task000/Exp002 = 19.4197
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp002 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp002/0 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp002/1 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp002/2 = 0.0000
+-- >> End of eval phase << --
+	Loss_Stream/eval_phase/test_stream/Task000 = 6.4894
+	MeanScores/eval_phase/test_stream = <avalanche.evaluation.metric_results.AlternativeValues object at 0x000002A566076170>
+	MeanScores/eval_phase/test_stream/new_classes = 14.0686
+	MeanScores/eval_phase/test_stream/new_old_diff = -59.1292
+	MeanScores/eval_phase/test_stream/old_classes = 73.1978
+	StreamBWT/eval_phase/test_stream = 0.0000
+	StreamForgetting/eval_phase/test_stream = 0.0000
+	Top1_Acc_Stream/eval_phase/test_stream/Task000 = 0.6500
+	Top1_ClassAcc_Stream/eval_phase/test_stream/Task000/0 = 1.0000
+	Top1_ClassAcc_Stream/eval_phase/test_stream/Task000/1 = 0.0000
+	Top1_ClassAcc_Stream/eval_phase/test_stream/Task000/2 = 0.9500
+-- >> Start of training phase << --
+-- Starting training on experience 2 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 1.6821
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.6845
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.7849
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/1 = 0.7032
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.5485
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.3388
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.8764
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.8604
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/1 = 0.8584
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9278
+Epoch 2 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.2767
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9049
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.8744
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/1 = 0.9007
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9447
+Epoch 3 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.2463
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9237
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9393
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/1 = 0.9064
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9425
+Epoch 4 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.2395
+	MeanScores/train_phase/train_stream = <avalanche.evaluation.metric_results.AlternativeValues object at 0x000002A8F4943D00>
+	MeanScores/train_phase/train_stream/new_classes = 8.0328
+	MeanScores/train_phase/train_stream/new_old_diff = 1.8157
+	MeanScores/train_phase/train_stream/old_classes = 6.2172
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9208
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9253
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/1 = 0.9155
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9269
+-- >> End of training phase << --
+-- >> Start of eval phase << --
+-- Starting eval on experience 0 (Task 0) from test stream --
+> Eval on experience 0 (Task 0) from test stream ended.
+	Loss_Exp/eval_phase/test_stream/Task000/Exp000 = 0.5179
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp000 = 0.8500
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp000/0 = 0.8500
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp000/1 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp000/2 = 0.0000
+-- Starting eval on experience 1 (Task 0) from test stream --
+> Eval on experience 1 (Task 0) from test stream ended.
+	ExperienceBWT/eval_phase/test_stream/Task000/Exp001 = -0.0500
+	ExperienceForgetting/eval_phase/test_stream/Task000/Exp001 = 0.0500
+	Loss_Exp/eval_phase/test_stream/Task000/Exp001 = 0.3894
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp001 = 0.9000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp001/0 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp001/1 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp001/2 = 0.9000
+-- Starting eval on experience 2 (Task 0) from test stream --
+> Eval on experience 2 (Task 0) from test stream ended.
+	Loss_Exp/eval_phase/test_stream/Task000/Exp002 = 0.0057
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp002 = 1.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp002/0 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp002/1 = 1.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp002/2 = 0.0000
+-- >> End of eval phase << --
+	Loss_Stream/eval_phase/test_stream/Task000 = 0.3043
+	MeanScores/eval_phase/test_stream = <avalanche.evaluation.metric_results.AlternativeValues object at 0x000002A98AA8CE20>
+	MeanScores/eval_phase/test_stream/new_classes = 10.9015
+	MeanScores/eval_phase/test_stream/new_old_diff = 4.8430
+	MeanScores/eval_phase/test_stream/old_classes = 6.0585
+	StreamBWT/eval_phase/test_stream = -0.0500
+	StreamForgetting/eval_phase/test_stream = 0.0500
+	Top1_Acc_Stream/eval_phase/test_stream/Task000 = 0.9167
+	Top1_ClassAcc_Stream/eval_phase/test_stream/Task000/0 = 0.8500
+	Top1_ClassAcc_Stream/eval_phase/test_stream/Task000/1 = 1.0000
+	Top1_ClassAcc_Stream/eval_phase/test_stream/Task000/2 = 0.9000
+-- >> Start of training phase << --
+-- Starting training on experience 0 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.1088
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9749
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9749
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0000
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+Epoch 2 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0000
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+Epoch 3 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0000
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+Epoch 4 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0000
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+Epoch 5 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0000
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+Epoch 6 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0000
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+Epoch 7 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0000
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+Epoch 8 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0000
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+Epoch 9 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0000
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+Epoch 10 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0000
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+Epoch 11 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0000
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+Epoch 12 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0000
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+Epoch 13 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0000
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+Epoch 14 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0000
+	MeanScores/train_phase/train_stream = <avalanche.evaluation.metric_results.AlternativeValues object at 0x000002A98AF47A30>
+	MeanScores/train_phase/train_stream/new_classes = 15.0993
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+-- >> End of training phase << --
+-- >> Start of training phase << --
+-- Starting training on experience 1 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.9235
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9372
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9555
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9189
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.2918
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9949
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9966
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9932
+Epoch 2 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0107
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9977
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9989
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9966
+Epoch 3 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0037
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9989
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9989
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9989
+Epoch 4 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0067
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9983
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9989
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9977
+Epoch 5 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0132
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9960
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9954
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9966
+Epoch 6 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0029
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9989
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9989
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9989
+Epoch 7 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0004
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 1.0000
+Epoch 8 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0002
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 1.0000
+Epoch 9 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0001
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 1.0000
+Epoch 10 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0001
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 1.0000
+Epoch 11 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0000
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 1.0000
+Epoch 12 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0000
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 1.0000
+Epoch 13 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0001
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 1.0000
+Epoch 14 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.0000
+	MeanScores/train_phase/train_stream = <avalanche.evaluation.metric_results.AlternativeValues object at 0x000002A98B007D00>
+	MeanScores/train_phase/train_stream/new_classes = 168.0110
+	MeanScores/train_phase/train_stream/new_old_diff = 157.9539
+	MeanScores/train_phase/train_stream/old_classes = 10.0572
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 1.0000
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 1.0000
+-- >> End of training phase << --
+-- >> Start of eval phase << --
+-- Starting eval on experience 0 (Task 0) from test stream --
+> Eval on experience 0 (Task 0) from test stream ended.
+	Loss_Exp/eval_phase/test_stream/Task000/Exp000 = 0.0000
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp000 = 1.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp000/0 = 1.0000
+-- Starting eval on experience 1 (Task 0) from test stream --
+> Eval on experience 1 (Task 0) from test stream ended.
+	Loss_Exp/eval_phase/test_stream/Task000/Exp001 = 0.3953
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp001 = 0.9500
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp001/0 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp001/2 = 0.9500
+-- Starting eval on experience 2 (Task 0) from test stream --
+> Eval on experience 2 (Task 0) from test stream ended.
+	Loss_Exp/eval_phase/test_stream/Task000/Exp002 = 63.6049
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp002 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp002/0 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp002/1 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp002/2 = 0.0000
+-- >> End of eval phase << --
+	Loss_Stream/eval_phase/test_stream/Task000 = 21.3334
+	MeanScores/eval_phase/test_stream = <avalanche.evaluation.metric_results.AlternativeValues object at 0x000002A98AFA3FD0>
+	MeanScores/eval_phase/test_stream/new_classes = 91.4195
+	MeanScores/eval_phase/test_stream/new_old_diff = 101.8821
+	MeanScores/eval_phase/test_stream/old_classes = -10.4626
+	StreamBWT/eval_phase/test_stream = 0.0000
+	StreamForgetting/eval_phase/test_stream = 0.0000
+	Top1_Acc_Stream/eval_phase/test_stream/Task000 = 0.6500
+	Top1_ClassAcc_Stream/eval_phase/test_stream/Task000/0 = 1.0000
+	Top1_ClassAcc_Stream/eval_phase/test_stream/Task000/1 = 0.0000
+	Top1_ClassAcc_Stream/eval_phase/test_stream/Task000/2 = 0.9500
+-- >> Start of training phase << --
+-- Starting training on experience 2 (Task 0) from train stream --
+Epoch 0 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 1.8747
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.4630
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.0785
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/1 = 0.8174
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.1409
+Epoch 1 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.8296
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.6247
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.8986
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/1 = 0.7968
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.0000
+Epoch 2 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.6346
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.7341
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.8988
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/1 = 0.8470
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.3626
+Epoch 3 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.4847
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.7938
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9616
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/1 = 0.8584
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.4943
+Epoch 4 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.3086
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9032
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9652
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/1 = 0.8893
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.8708
+Epoch 5 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.2515
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9208
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9664
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/1 = 0.8893
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9376
+Epoch 6 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.2386
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9214
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9447
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/1 = 0.9053
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9310
+Epoch 7 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.2357
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9265
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9457
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/1 = 0.9121
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9361
+Epoch 8 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.2383
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9260
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9601
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/1 = 0.9053
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9324
+Epoch 9 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.2264
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9243
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9483
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/1 = 0.9132
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9218
+Epoch 10 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.2060
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9300
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9536
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/1 = 0.9155
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9354
+Epoch 11 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.2143
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9294
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9518
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/1 = 0.9121
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9419
+Epoch 12 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.2183
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9226
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9554
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/1 = 0.9064
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9213
+Epoch 13 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.1891
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9345
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9595
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/1 = 0.9189
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9404
+Epoch 14 ended.
+	Loss_Epoch/train_phase/train_stream/Task000 = 0.1793
+	MeanScores/train_phase/train_stream = <avalanche.evaluation.metric_results.AlternativeValues object at 0x000002A98AFC5FF0>
+	MeanScores/train_phase/train_stream/new_classes = -5.3721
+	MeanScores/train_phase/train_stream/new_old_diff = -7.1131
+	MeanScores/train_phase/train_stream/old_classes = 1.7410
+	Top1_Acc_Epoch/train_phase/train_stream/Task000 = 0.9408
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/0 = 0.9438
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/1 = 0.9361
+	Top1_ClassAcc_Epoch/train_phase/train_stream/Task000/2 = 0.9471
+-- >> End of training phase << --
+-- >> Start of eval phase << --
+-- Starting eval on experience 0 (Task 0) from test stream --
+> Eval on experience 0 (Task 0) from test stream ended.
+	Loss_Exp/eval_phase/test_stream/Task000/Exp000 = 0.5314
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp000 = 0.7500
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp000/0 = 0.7500
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp000/1 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp000/2 = 0.0000
+-- Starting eval on experience 1 (Task 0) from test stream --
+> Eval on experience 1 (Task 0) from test stream ended.
+	ExperienceBWT/eval_phase/test_stream/Task000/Exp001 = 0.0500
+	ExperienceForgetting/eval_phase/test_stream/Task000/Exp001 = -0.0500
+	Loss_Exp/eval_phase/test_stream/Task000/Exp001 = 0.0034
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp001 = 1.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp001/0 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp001/1 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp001/2 = 1.0000
+-- Starting eval on experience 2 (Task 0) from test stream --
+> Eval on experience 2 (Task 0) from test stream ended.
+	Loss_Exp/eval_phase/test_stream/Task000/Exp002 = 0.0201
+	Top1_Acc_Exp/eval_phase/test_stream/Task000/Exp002 = 1.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp002/0 = 0.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp002/1 = 1.0000
+	Top1_ClassAcc_Exp/eval_phase/test_stream/Task000/Exp002/2 = 0.0000
+-- >> End of eval phase << --
+	Loss_Stream/eval_phase/test_stream/Task000 = 0.1850
+	MeanScores/eval_phase/test_stream = <avalanche.evaluation.metric_results.AlternativeValues object at 0x000002A98AA316C0>
+	MeanScores/eval_phase/test_stream/new_classes = -5.9091
+	MeanScores/eval_phase/test_stream/new_old_diff = -8.3164
+	MeanScores/eval_phase/test_stream/old_classes = 2.4073
+	StreamBWT/eval_phase/test_stream = 0.0500
+	StreamForgetting/eval_phase/test_stream = -0.0500
+	Top1_Acc_Stream/eval_phase/test_stream/Task000 = 0.9167
+	Top1_ClassAcc_Stream/eval_phase/test_stream/Task000/0 = 0.7500
+	Top1_ClassAcc_Stream/eval_phase/test_stream/Task000/1 = 1.0000
+	Top1_ClassAcc_Stream/eval_phase/test_stream/Task000/2 = 1.0000
