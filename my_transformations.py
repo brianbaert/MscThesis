@@ -75,3 +75,6 @@ transformAV_448_Fuse = transforms.Compose([
     transforms.Resize((224,224))
 ])
 
+transformFD_Image = transforms.Compose([
+    transforms.Resize((448,448))
+])

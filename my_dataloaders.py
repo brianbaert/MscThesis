@@ -236,4 +236,57 @@ class FractalDataset(Dataset):
         data, label = self.data[idx], self.labels[idx]
         return data, label
 
+class FractalImages(ImageFolder):
+  def __init__(self, root, cls, transform=None):
+    self.data_dir = root
+    self.classes = cls
+    self.class_to_indx = {c: i for i, c in enumerate(self.classes)}
+    self.image_paths = []
+    self.labels = []
+
+    for class_name in self.classes:
+      class_path = os.path.join(root, class_name)
+      for filename in os.listdir(class_path):
+          self.image_paths.append(os.path.join(class_path, filename))
+          self.labels.append(self.class_to_indx[class_name])
+
+    self.transform = transform
+
+  def __init__(self, root, cls, transform=None):
+    self.data_dir = root
+    self.classes = cls
+    self.class_to_indx = {c: i for i, c in enumerate(self.classes)}
+    self.image_paths = []
+    self.labels = []
+
+    for class_name in self.classes:
+      class_path = os.path.join(root, class_name)
+      for filename in os.listdir(class_path):
+          self.image_paths.append(os.path.join(class_path, filename))
+          self.labels.append(self.class_to_indx[class_name])
+    self.transform = transform
+
+  def __len__(self):
+    return len(self.image_paths)
+
+  def __getitem__(self, idx):
+    image_path = self.image_paths[idx]
+    image = Image.open(image_path)
+    image = image.convert('RGB')
+    label = self.labels[idx]
+
+    if self.transform:
+      image = self.transform(image)
+
+    temp = np.array(image)
+
+    temp = temp.astype(np.float32)
+    temp /= 255.0
+    image = torch.from_numpy(temp.transpose((2, 0, 1)))
+    
+    return image, label
+
+  def count_class_instances(self):
+    label_counts = Counter(self.labels)
+    return label_counts
 
