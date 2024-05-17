@@ -151,3 +151,23 @@ class FractalDimensionConvNet(nn.Module):
         x = nn.functional.relu(self.fc2(x))
         x = self.fc3(x)
         return x
+
+class MultiModalNet(nn.Module):
+    def __init__(self, num_classes=3):
+        super(MultiModalNet, self).__init__()
+        self.colorNet = MultiViewColorNet_resnet18(num_classes)
+        self.fractalNet = FractalDimensionConvNet()
+        # Define a new output layer for the combined features
+        self.fc = nn.Linear(6, num_classes)
+
+    def forward(self, x1, x2):
+        # Forward pass through each network
+        x1 = self.colorNet(x1)
+        x2 = self.fractalNet(x2)
+        # Concatenate the outputs along dimension 1
+        x = torch.cat((x1, x2), dim=1)
+        # Pass the combined features through the output layer
+        x = self.fc(x)
+
+        return x
+

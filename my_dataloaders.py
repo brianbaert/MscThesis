@@ -312,6 +312,7 @@ class MultimodalFractalImages(ImageFolder):
     #extract filename needed for other dataloader
     filename = os.path.splitext(os.path.basename(image_path))[0]
     index = my_utils.find_index(filename)
+    index = index - 896
     image_fd = self.fd_matrix[index]
     return image, label, image_fd
 
