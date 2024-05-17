@@ -14,7 +14,13 @@ from datetime import datetime
 from PIL import Image
 import matplotlib.pyplot as plt
 import seaborn as sns
+import re
 
+def find_index(filename):
+    match = re.search(r'\d+', filename)
+    if match:
+        n_index = match.group(0)
+        return(int(n_index))
 
 def checkpoint(model, filename):
     # Save the current state of the model to a file
