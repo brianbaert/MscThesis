@@ -168,6 +168,5 @@ class MultiModalNet(nn.Module):
         x = torch.cat((x1, x2), dim=1)
         # Pass the combined features through the output layer
         x = self.fc(x)
-
         return x
 

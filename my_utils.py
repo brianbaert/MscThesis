@@ -182,49 +182,6 @@ def plot_f1_scores(f1, classes, name):
     plt.close()
 
 
-def cl_adaptive_train_loop(bm, cl_strategy, model, optimizer, number_of_workers, classes, scr=False):
-    results = []
-    print('Starting experiment with strategy:', cl_strategy)
-    for experience in bm.train_stream:
-        print("Start of experience: ", experience.current_experience)
-        print("Current Classes: ", experience.classes_in_this_experience)
-        print(len(experience.classes_in_this_experience))
-        cl_strategy.train(experience)
-        print('Training completed')
-        print("Shape of the FC layer: ")
-        print(model.classifier)
-
-        # Get classification layer weights after training
-        if scr==False:
-            classification_weights = model.fc3.weight.detach().numpy()
-        else:
-            classification_weights = model.feature_extractor.fc3.weight.detach().numpy()
-
-        print(classification_weights)
-        print(classes)
-        # Create a DataFrame for seaborn violin plot
-        weight_df = pd.DataFrame(classification_weights.T, columns=classes)
-        
-        # Set up seaborn style
-        sns.set(style="whitegrid")
-        
-        # Create a violin plot
-        plt.figure(figsize=(8, 6))
-        sns.violinplot(data=weight_df, palette="viridis", inner="quartile")
-
-        plt.xlabel("Class")
-        plt.ylabel("Weight Value")
-        plt.title("Violin Plot of Classification Layer Weight changes")
-        plt.xticks(rotation=45)
-        plt.tight_layout()
-        plt.show()
-                
-        print("Computing accuracy on the whole test set")
-        results.append(cl_strategy.eval(bm.test_stream))
-
-
-    return results
-
 @timeit
 def cl_simple_train_loop(bm, cl_strategy, model, optimizer, number_of_workers, classes, name, scr=False):
     results = []
@@ -304,6 +261,28 @@ def cl_simple_train_loop(bm, cl_strategy, model, optimizer, number_of_workers, c
                 init_weights = np.copy(model.fc3.weight.detach().numpy())
             else:
                 init_weights = np.copy(model.feature_extractor.fc3.weight.detach().numpy())
+    all_metrics = cl_strategy.evaluator.get_all_metrics()
+    print(f"Stored metrics: {list(all_metrics.keys())}")
+    return results
+
+@timeit
+def cl_RQ3_train_loop(bm, cl_strategy, model, optimizer, number_of_workers, classes, name, scr=False):
+    results = []
+    print('Starting experiment with strategy:', cl_strategy)
+    
+    for experience in bm.train_stream:
+        print("Start of experience: ", experience.current_experience)
+        print("Current Classes: ", experience.classes_in_this_experience)
+
+        x1, x2, y = experience
+                # train one experience
+        res = cl_strategy.train((x1, x2, y), model)
+        print("Training completed")
+
+        if experience.current_experience > 0:
+            print("Computing accuracy on the whole test set")
+            results.append(cl_strategy.eval(bm.test_stream))
+
     all_metrics = cl_strategy.evaluator.get_all_metrics()
     print(f"Stored metrics: {list(all_metrics.keys())}")
     return results
